@@ -12,7 +12,7 @@ Installation
 ============
 
 1. Download the [latest version](https://github.com/ekarorgit/metadata.csfd.cz/archive/master.zip).
-2. In Kodi, navigate to *System* > *Settings* > *Add-ons* > *Install from zip file*.
+2. In Kodi, navigate to *Add-ons* > *Add-on browser* > *Install from zip file*. [help](http://kodi.wiki/view/HOW-TO:Install_add-ons_from_zip_files)
 3. Browse for the downloaded zip file and click *OK*.
 
 Compatibility
