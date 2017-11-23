@@ -24,17 +24,17 @@
     <email></email>
     <source>www.github.com/ekarorgit/metadata.csfd.cz</source>
     <news>v 3.5 (23.11.2017)
-    Změny uvedeny oproti metadata.csfd.cz verze 3.4h, kód téměř celý napsán znova.
-    [fixed] Automatické přesměrovaní IMDB ID na správné
+    Logika založena na metadata.csfd.cz verzi 3.4h, ale skoro celé přepsáno. Změny:
+    [fixed] Automatické přesměrovaní IMDB ID na správné (např: imdbid pro film Neon Demon)
     [fixed] Plakát z CSFD stahuje v maximalním rozlišení
     [fixed] Délka filmu stažena i při uvedení více verzí na CSFD
+    [changed] Actors, Directors, Writers stahuje opět z IMDB
     [added] Fallback obsahu z TMDB
     [added] Možnost stahovaní obsahu pouze z TMDB
     [added] Scraper opět najde výsledek hledaní s jedním výsledkem (např: Metegol)
     [added] Volba stahovaní plakátu z IMDB 
     [added] Ve výsledku hledání zobrazuje i search-name
     [added] Používání cache
-    [changed] Actors, Directors, Writers stahuje opět z IMDB
     </news>
     <assets>
       <icon>icon.png</icon>
