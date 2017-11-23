@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<strings>
+    <!-- settings labels -->
+    <string id="30000">Stahovat plakát z ČSFD</string>
+    <string id="30001">Zobrazit pouze originální název</string>
+    <string id="30002">Zobrazit pouze hlavní (český) název</string>
+    <string id="30007">Velikost IMDb plakátu &amp; obrázku herců</string>
+    <string id="30008">Odstraňovat výrazy "part" z názvu filmu</string>
+    <string id="30009">Povolit upoutávky z themoviedb.org</string>
+    <string id="30010">Zohlednit rok z názvu při vyhledávání</string>
+    <string id="30011">Filmové média</string>
+    <string id="30012">Stahovat plakát z themoviedb.org</string>
+    <string id="30013">Preferovaný jazyk náhledu</string>
+    <string id="30014">Povolit fanart z themoviedb.org</string>
+    <string id="30015">Stahovat plakát z imdb.com</string>
+    <string id="30020">Získat název sady (kolekce) z themoviedb.org</string>
+    <string id="30021">Preferovaný jazyk názvu sady (kolekce)</string>
+    <string id="30022">Získat obsah z themoviedb.org</string>
+    <string id="30023">Preferovaný jazyk obsahu</string>
+    <string id="30041">Preferovaný jazyk upoutávky</string>
+
+</strings>
+

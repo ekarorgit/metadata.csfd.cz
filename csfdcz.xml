@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- version 3.5 -->
+<scraper date="2017-11-03" framework="1.1" language="cs">
+
+    <NfoUrl dest="3">
+        <RegExp input="$$1" output="&lt;url gzip=&quot;yes&quot; cache=&quot;CSFD.prehled-\1.html&quot;&gt;https://www.csfd.cz/film/\1/prehled/&lt;/url&gt;&lt;id&gt;\1&lt;/id&gt;" dest="3">
+            <expression>https?://(?:www\.)?csfd\.cz/film/(\d+-.*?)/</expression>
+        </RegExp>
+    </NfoUrl>     
+
+    <CreateSearchUrl dest="8">
+        <RegExp input="$$1" output="&lt;url cache=&quot;CSFD.hledat-\1.html&quot;&gt;http://www.csfd.cz/hledat/?q=\1&lt;/url&gt;" dest="8">
+            <RegExp conditional="titlepartsremove" input="$$1" output="\1" dest="1">
+                <expression noclean="1">(.*)%20part%20\d+$</expression>
+            </RegExp>
+            <RegExp conditional="yearsearchcsfd" input="$$2" output="+$$2" dest="1+">
+                <expression noclean="1" />
+            </RegExp>
+            <expression noclean="1"/>
+        </RegExp>
+    </CreateSearchUrl>       
+
+    <GetSearchResults dest="8">
+        <RegExp input="$$7" output="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;&lt;results sorted=&quot;yes&quot;&gt;\1&lt;/results&gt;" dest="8">
+            <RegExp input="$$6" output="&lt;entity&gt;&lt;title&gt;\2\3\4&lt;/title&gt;&lt;url gzip=&quot;yes&quot; cache=&quot;CSFD.prehled-\1.html&quot;&gt;http://www.csfd.cz/film/\1/prehled/&lt;/url&gt;&lt;/entity&gt;" dest="7+">
+                <!-- primo nalezeny film -->
+                <RegExp input="$$1" output="&lt;u&gt;\1&lt;/u&gt;&lt;t&gt;\2&lt;/t&gt;" dest="6">
+                    <expression repeat="no" noclean="1">&lt;title&gt;([^|]*) \| .*?&lt;.*?&quot;csfd.cz/film/(\d+[^/]*)/prehled/&quot;&gt;</expression>
+                </RegExp>
+                <!-- extract search-list -->
+                <RegExp input="$$1" output="\1" dest="1">
+                    <expression repeat="no" noclean="1">id=&quot;search-films&quot;.*?&gt;(.*?)&lt;div class=&quot;footer&quot;</expression>
+                </RegExp>
+
+                <!-- hlavni nabidka -->
+                <RegExp input="$$1" output="&lt;u&gt;\1&lt;/u&gt;&lt;t&gt;\2&lt;/t&gt;&lt;t1&gt; \3&lt;/t1&gt;&lt;t2&gt; (\4)&lt;/t2&gt;" dest="6+">
+                    <expression repeat="yes" noclean="1,2,3">subject&quot;&gt;&lt;a href=&quot;/film/([^/]+)/&quot; class=&quot;film c.&quot;&gt;([^&lt;]*)&lt;/a&gt;.*?(?:&lt;span class=&quot;search-name&quot;&gt;([^&lt;]*)&lt;/span&gt;\s*)?&lt;p&gt;([^&lt;]*)&lt;</expression>
+                </RegExp>  
+
+                <!-- vedlejsi nabidka -->
+                <RegExp input="$$1" output="&lt;u&gt;\1&lt;/u&gt;&lt;t&gt;\2&lt;/t&gt;&lt;t1&gt; \5&lt;/t1&gt;&lt;t2&gt; \3 \4&lt;/t2&gt;" dest="6+">
+                    <expression repeat="yes" noclean="1,2,3,4,5">&lt;li&gt;\s*&lt;a href=&quot;/film/([^/]*)/&quot; class=&quot;film c.&quot;&gt;([^&lt;]*)&lt;/a&gt;\s*(?:&lt;span class=&quot;film-type&quot;&gt;(\(.*?\))&lt;/span&gt;)?\s*&lt;span class=&quot;film-year&quot;[^&gt;]*&gt;(\(\d+\))&lt;/span&gt;\s*(?:&lt;span class=&quot;search-name&quot;&gt;([^&lt;]*)&lt;/span&gt;\s*)?</expression>
+                </RegExp>   
+                <expression repeat="yes" noclean="1,2,3,4">&lt;u&gt;(.*?)&lt;/u&gt;&lt;t&gt;(.*?)&lt;/t&gt;(?:&lt;t1&gt;(.*?)&lt;/t1&gt;)?(?:&lt;t2&gt;(.*?)&lt;/t2&gt;)?</expression>
+            </RegExp>
+            <expression noclean="1"/>
+        </RegExp>
+    </GetSearchResults>
+
+    <GetDetails clearbuffers="no" dest="8">
+        <RegExp input="$$7" output="&lt;details&gt;&lt;id&gt;$$2&lt;/id&gt;\1&lt;/details&gt;" dest="8">
+            <!-- IMDB ID -->
+            <RegExp input="$$1" output="tt\1" dest="2">
+                <expression noclean="1" trim="1">&lt;a href=&quot;http:/[^&quot;]*imdb[^/]*/.itle\D*(\d*)[^&quot;]*&quot;</expression>
+            </RegExp>
+            <!-- CSFD URL -->
+            <RegExp input="$$1" output="\1" dest="3">
+                <expression noclean="1">https?://(?:www\.)?csfd\.cz/film/(\d+-.*?)/(?:prehled|komentare|galerie)/</expression>
+            </RegExp>
+            <!-- fallback -->
+            <RegExp input="$$1" output="&lt;url function=&quot;GetFallbackDetails&quot; cache=&quot;$$2-main.html&quot;&gt;http://akas.imdb.com/title/$$2/&lt;/url&gt;" dest="7+">
+                <expression noclean="1" />
+            </RegExp>            
+            <!-- CSFD info -->
+            <RegExp input="$$1" output="&lt;url function=&quot;GetCSFDDetails&quot; cache=&quot;CSFD.prehled-$$3.html&quot;&gt;http://www.csfd.cz/filmy/$$3/prehled/&lt;/url&gt;" dest="7+">
+                <expression noclean="1" />
+            </RegExp>            
+            <!-- Rest info -->
+            <expression noclean="1"/>
+        </RegExp>
+    </GetDetails>
+
+
+    <GetFallbackDetails dest="8">
+        <!-- fix for redirect IMDB id -->
+        <RegExp input="$$1" output="\1" dest="2">
+            <expression>href=&quot;http://www.imdb.com/title/(tt[0-9]+)/&quot;</expression>
+        </RegExp>
+        <RegExp input="$$7" output="&lt;details&gt;\1&lt;/details&gt;" dest="8">
+
+            <RegExp input="$$2" output="&lt;id&gt;\1&lt;/id&gt;" dest="7">
+                <expression noclean="1" />
+            </RegExp>
+            <RegExp input="$$2" output="&lt;chain function=&quot;GetIMDBCastById&quot;&gt;$$2&lt;/chain&gt;" dest="7+">
+                <expression noclean="1" />
+            </RegExp>
+            <RegExp input="$$2" output="&lt;chain function=&quot;GetIMDBDirectorsById&quot;&gt;$$2&lt;/chain&gt;" dest="7+">
+                <expression />
+            </RegExp>
+            <RegExp input="$$2" output="&lt;chain function=&quot;GetIMDBWritersById&quot;&gt;$$2&lt;/chain&gt;" dest="7+">
+                <expression />
+            </RegExp>
+            <RegExp conditional="tmdbset" input="$$2" output="&lt;chain function=&quot;GetTMDBLangSetByIdChain&quot;&gt;$$2&lt;/chain&gt;" dest="7+">
+                <expression />
+            </RegExp>
+            <RegExp conditional="imdbposter" input="$$2" output="&lt;url function=&quot;GetIMDBThumb&quot; cache=&quot;IMDB.media-$$2.html&quot;&gt;http://www.imdb.com/title/$$2/mediaindex&lt;/url&gt;" dest="7+">
+                <expression />
+            </RegExp>
+            <RegExp conditional="tmdbposter" input="$$2" output="&lt;chain function=&quot;GetTMDBLangThumbsByIdChain&quot;&gt;$$2&lt;/chain&gt;" dest="7+">
+                <expression />
+            </RegExp>
+            <RegExp conditional="tmdbfanart" input="$$2" output="&lt;chain function=&quot;GetTMDBFanartByIdChain&quot;&gt;$$2&lt;/chain&gt;" dest="7+">
+                <expression />
+            </RegExp>
+            <RegExp conditional="tmdbtrailer" input="$$2" output="&lt;chain function=&quot;GetTMDBLangTrailerByIdChain&quot;&gt;$$2&lt;/chain&gt;" dest="7+">
+                <expression />
+            </RegExp>
+            <RegExp input="$$2" output="&lt;chain function=&quot;GetTMDBLangPlotByIdChain&quot;&gt;$$2&lt;/chain&gt;" dest="7+">
+                <expression />
+            </RegExp>
+
+            <RegExp input="$$2" output="&lt;url function=&quot;GetRestIMDBInfo&quot; cache=&quot;IMDB.combined-$$2.html&quot;&gt;http://akas.imdb.com/title/$$2/combined&lt;/url&gt;" dest="7+">
+                <expression />
+            </RegExp>
+            <expression noclean="1" />
+        </RegExp>
+    </GetFallbackDetails>
+
+
+    <GetCSFDDetails dest="8">
+        <RegExp input="$$7" output="&lt;details&gt;\1&lt;/details&gt;" dest="8">
+
+            <!-- Titles !-->
+            <RegExp input="$$6" output="&lt;title&gt;\1&lt;/title&gt;&lt;originaltitle&gt;$$4&lt;/originaltitle&gt;" dest="7+">
+                <RegExp input="$$1" output="\1" dest="3">
+                    <expression noclean="1" trim="1">&lt;h1[^&gt;]*&gt;([^&lt;]*)&lt;</expression>
+                </RegExp>  
+                <RegExp input="$$1" output="\1" dest="4">
+                    <expression noclean="1" trim="1">images/flags/[^&lt;]*&lt;h3[^&gt;]*&gt;([^&lt;]*)&lt;</expression>
+                </RegExp>
+                
+                <RegExp input="$$3" output="$$3" dest="6">
+                    <expression />
+                </RegExp>  
+                <RegExp input="$$4" output=" ($$4)" dest="6+">
+                    <expression noclean="1" >(.+)</expression>
+                </RegExp>  
+                <RegExp conditional="originaltitle" input="$$4" output="$$4" dest="6">
+                    <expression noclean="1" >(.+)</expression>
+                </RegExp>
+                <RegExp conditional="onlyczechtitle" input="$$3" output="$$3" dest="6">
+                    <expression noclean="1" />
+                </RegExp>
+                <expression noclean="1"/>
+            </RegExp>
+
+            <!-- plot -->
+            <RegExp condition="!tmdbplot" input="$$6" output="&lt;plot&gt;\1&lt;/plot&gt;" dest="7+">
+                <RegExp input="$$1" output="\1" dest="6">
+                    <expression clear="yes" repeat="no">Obsah(.*?)source</expression>          
+                </RegExp>
+                <expression>(.+)</expression>
+            </RegExp>
+
+            <!-- runtime -->
+            <RegExp input="$$1" output="&lt;runtime&gt;\1&lt;/runtime&gt;" dest="7+">
+                <expression repeat="no" trim="1" noclean="0">([0-9]+) min\s*(?:\([^)]+\)\s*)?&lt;/p&gt;</expression>
+            </RegExp>
+            <!-- rating -->
+            <RegExp input="$$1" output="&lt;rating max=&quot;100&quot;&gt;\1&lt;/rating&gt;" dest="7+">
+                <expression repeat="no" trim="1" noclean="0">&lt;h2 class=&quot;average&quot;&gt;[^0-9]*([0-9]+)%</expression>
+            </RegExp>
+            <!-- votes -->
+            <RegExp input="$$1" output="&lt;votes&gt;\1&lt;/votes&gt;" dest="7+">
+                <expression repeat="no" trim="1" noclean="0">všechna hodnocení&lt;br /&gt; \(([^\)]*)\)</expression>
+            </RegExp>
+            <!-- year -->
+            <RegExp input="$$1" output="&lt;year&gt;\1&lt;/year&gt;" dest="7+">
+                <expression repeat="no" trim="1" noclean="0">&lt;span itemprop=&quot;dateCreated&quot;&gt;([0-9]+)&lt;/span&gt;</expression>
+            </RegExp>
+            <!-- genre -->
+            <RegExp input="$$1" output="&lt;genre&gt;\1&lt;/genre&gt;" dest="7+">
+                <expression repeat="yes" trim="1" noclean="0">&lt;p class=&quot;genre&quot;&gt;([^&lt;]*)</expression>
+            </RegExp>
+            <!-- country -->
+            <RegExp input="$$1" output="&lt;country&gt;\1&lt;/country&gt;" dest="7+">
+                <expression repeat="yes">&lt;p class=&quot;origin&quot;&gt;([^,]*),</expression>
+            </RegExp>
+            <!-- csfd thumb-->
+            <RegExp conditional="csfdposter" input="$$1" output="&lt;thumb&gt;http://\1&lt;/thumb&gt;" dest="7+">
+                <expression repeat="yes" noclean="1">(img.csfd.cz/files/images/film/posters[^&quot;]*)(?:[?][hw][0-9]+)&quot;</expression>
+            </RegExp>              
+
+            <expression noclean="1" />    
+        </RegExp>
+    </GetCSFDDetails>
+
+    <GetRestIMDBInfo dest="8">
+        <RegExp input="$$7" output="&lt;details&gt;\1&lt;/details&gt;" dest="8">
+            <RegExp input="$$1" output="&lt;year&gt;\1&lt;/year&gt;" dest="7+">
+                <expression>a href=&quot;/year/([0-9]*)</expression>
+            </RegExp>
+            <RegExp input="$$1" output="&lt;top250&gt;\1&lt;/top250&gt;" dest="7+">
+                <expression>Top 250: #([0-9]*)&lt;/a&gt;</expression>
+            </RegExp>
+            <RegExp input="$$1" output="&lt;mpaa&gt;\1&lt;/mpaa&gt;" dest="7+">
+                <expression>MPAA&lt;/a&gt;:&lt;/h5&gt;\n?&lt;div class=&quot;info-content&quot;&gt;\n?(.[^&lt;]*)</expression>
+            </RegExp>
+            <RegExp input="$$1" output="&lt;certification&gt;\1 \3&lt;/certification&gt;" dest="7+">
+                <expression repeat="yes">&lt;a href=&quot;/search/title\?certificates=[^&quot;]*&quot;&gt;([^&lt;]*)&lt;/a&gt;[^&lt;]*(&lt;i&gt;([^&lt;]*)&lt;/i&gt;)?</expression>
+            </RegExp>
+            <RegExp input="$$1" output="&lt;tagline&gt;\1&lt;/tagline&gt;" dest="7+">
+                <expression>&lt;h5&gt;Tagline:&lt;/h5&gt;\n&lt;div class="info-content"&gt;([^&lt;]*)</expression>
+            </RegExp>
+            <RegExp input="$$1" output="&lt;runtime&gt;\1&lt;/runtime&gt;" dest="7+">
+                <expression trim="1">&lt;h5&gt;Runtime:&lt;/h5&gt;\n?&lt;div class=&quot;info-content&quot;&gt;\n?([0-9]*)</expression>
+            </RegExp>
+            <RegExp input="$$1" output="&lt;country&gt;\1&lt;/country&gt;" dest="7+">
+                <expression repeat="yes">&quot;/Sections/Countries/[^/]*/&quot;&gt;([^&lt;]*)&lt;/a&gt;</expression>
+            </RegExp>
+            <RegExp input="$$1" output="&lt;studio&gt;\1&lt;/studio&gt;" dest="7+">
+                <expression repeat="yes">&quot;/company/[^/]*/&quot;&gt;([^&lt;]*)&lt;/a&gt;</expression>
+            </RegExp>
+            <expression noclean="1"/>
+        </RegExp>
+    </GetRestIMDBInfo>
+
+    <GetIMDBThumb dest="8">
+        <RegExp input="$$7" output="&lt;details&gt;\1&lt;/details&gt;" dest="8">
+            <RegExp input="$$1" output="&lt;thumb&gt;\1.jpg&lt;/thumb&gt;" dest="7">
+                <expression noclean="1">class=&quot;poster&quot;[^&gt;]*src=&quot;(https?://[^/]+/images/[^/]+/[^\.]+)\.</expression>
+            </RegExp>
+            <expression noclean="1"/>
+        </RegExp>
+    </GetIMDBThumb>
+
+    <GetIMDBThumbs dest="8">
+        <RegExp input="$$7" output="&lt;details&gt;\1&lt;/details&gt;" dest="8">
+            <RegExp input="$$1" output="&lt;thumb&gt;\1.jpg&lt;/thumb&gt;" dest="7">
+                <expression noclean="1">class=&quot;poster&quot;[^&gt;]*src=&quot;(https?://[^/]+/images/[^/]+/[^\.]+)\.</expression>
+            </RegExp>
+            <RegExp input="$$1" output="&lt;thumb&gt;\1.jpg&lt;/thumb&gt;" dest="7+">
+                <expression repeat="yes" noclean="1">itemprop=&quot;thumbnailUrl&quot;&gt;&lt;img[^&gt;]+src=&quot;(https?://[^/]+/images/[^/]+/[^\.]+)\.</expression>
+            </RegExp>
+            <expression />
+        </RegExp>
+    </GetIMDBThumbs>
+
+</scraper>
