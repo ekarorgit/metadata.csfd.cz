@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <strings>
     <!-- settings labels -->
-    <string id="30000">Download ČSFD poster</string>
-    <string id="30001">Show only original title</string>
-    <string id="30002">Only main (czech) title</string>
-    <string id="30007">IMDb Poster &amp; Actor Thumb(s) Size</string>
-    <string id="30008">Remove "part X" from title</string>
-    <string id="30009">Enable trailers from themoviedb.org</string>
-    <string id="30010">Force year from filename in search</string>
-    <string id="30011">Medias</string>
-    <string id="30012">Enable posters from themoviedb.org</string>
-    <string id="30013">Preferred Thumb Language</string>
-    <string id="30014">Download fanart from themoviedb.org</string>
-    <string id="30015">Enable posters from imdb.org</string>
-    <string id="30020">Get Set (Collection) Name from themoviedb.org</string>
-    <string id="30021">Preferred Set (Collection) Name Language</string>
-    <string id="30022">Get Plot from themoviedb.org</string>
-    <string id="30023">Preferred Plot Language</string>
-    <string id="30041">Preferred Trailer Language</string>
+    <string id="30001">Force year from filename in search</string>
+    <string id="30002">Remove "part X" from title</string>
+    <string id="30003">Only main (czech) title</string>
+    <string id="30004">Show only original title</string>
+    <string id="30005">Preffer english title instead of original</string>
+    <string id="30011">Get collection name from themoviedb.org</string>
+    <string id="30012">Preferred collection name language</string>
+    <string id="30021">Get plot from themoviedb.org</string>
+    <string id="30022">Preferred plot language</string>
+    <string id="30100">Medias</string>
+    <string id="30101">Download CSFD poster</string>
+    <string id="30102">Enable posters from imdb.org</string>
+    <string id="30103">Enable posters from themoviedb.org</string>
+    <string id="30104">Preferred thumb language</string>
+    <string id="30111">Download fanart from themoviedb.org</string>
+    <string id="30121">Enable trailers from themoviedb.org</string>
+    <string id="30122">Preferred trailer language</string>
 
 </strings>
 
