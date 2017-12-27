@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <settings>
     <category label="128">
-    <setting label="30010" type="bool" id="yearsearchcsfd" default="true" />
-    <setting label="30008" type="bool" id="titlepartsremove" default="false" />
-    <setting label="30001" type="bool" id="originaltitlecsfd" default="false"/>
-    <setting label="30002" type="bool" id="onlyczechtitle" default="false"/>
+    <setting label="30001" type="bool" id="yearsearchcsfd" default="true" />
+    <setting label="30002" type="bool" id="titlepartsremove" default="false" />
+    <setting label="30003" type="bool" id="onlyczechtitle" default="false" enable="eq(1,false)"/>
+    <setting label="30004" type="bool" id="originaltitlecsfd" default="false" enable="eq(-1,false)"/>
+    <setting label="30005" type="bool" id="engtitlecsfd" default="false" enable="eq(-2,false)"/>
     <setting type="sep"/>
-    <setting label="30020" type="bool" id="tmdbset" default="true"/>
-    <setting label="30021" type="select" values="bg|cs|da|de|el|en|es|fi|fr|he|hr|hu|it|ja|ko|nl|no|pl|pt|ru|sl|sv|tr|zh" id="tmdbsetlanguage" default="en" enable="!eq(-1,false)"/>
+    <setting label="30011" type="bool" id="tmdbset" default="true"/>
+    <setting label="30012" type="select" subsetting="true" values="bg|cs|da|de|el|en|es|fi|fr|he|hr|hu|it|ja|ko|nl|no|pl|pt|ru|sl|sv|tr|zh" id="tmdbsetlanguage" default="en" enable="!eq(-1,false)"/>
     <setting type="sep"/>
-    <setting label="30022" type="bool" id="tmdbplot" default="false"/>
-    <setting label="30023" type="select" values="bg|cs|da|de|el|en|es|fi|fr|he|hr|hu|it|ja|ko|nl|no|pl|pt|ru|sl|sv|tr|zh" id="tmdbplotlanguage" default="cs" enable="!eq(-1,false)"/>
+    <setting label="30021" type="bool" id="tmdbplot" default="false"/>
+    <setting label="30022" type="select" subsetting="true" values="bg|cs|da|de|el|en|es|fi|fr|he|hr|hu|it|ja|ko|nl|no|pl|pt|ru|sl|sv|tr|zh" id="tmdbplotlanguage" default="cs" enable="!eq(-1,false)"/>
     </category>
-    <category label="30011">
-    <setting label="30000" type="bool" id="csfdposter" default="true"/>
-    <setting label="30015" type="bool" id="imdbposter" default="false"/>
-    <setting label="30012" type="bool" id="tmdbposter" default="false"/>
-    <setting label="30013" type="select" values="bg|cs|da|de|el|en|es|fi|fr|he|hr|hu|it|ja|ko|nl|no|pl|pt|ru|sl|sv|tr|zh" id="tmdbthumblanguage" default="cs" enable="!eq(-1,false)"/>
+    <category label="30100">
+    <setting label="30111" type="bool" id="csfdposter" default="true"/>
+    <setting label="30112" type="bool" id="imdbposter" default="false"/>
+    <setting label="30113" type="bool" id="tmdbposter" default="false"/>
+    <setting label="30114" type="select" subsetting="true" values="bg|cs|da|de|el|en|es|fi|fr|he|hr|hu|it|ja|ko|nl|no|pl|pt|ru|sl|sv|tr|zh" id="tmdbthumblanguage" default="cs" enable="!eq(-1,false)"/>
     <setting type="sep"/>
-    <setting label="30014" type="bool" id="tmdbfanart" default="true"/> 
+    <setting label="30121" type="bool" id="tmdbfanart" default="true"/> 
     <setting type="sep"/>
-    <setting label="30009" type="bool" id="tmdbtrailer" default="true"/>
-    <setting label="30041" type="select" values="bg|cs|da|de|el|en|es|fi|fr|he|hr|hu|it|ja|ko|nl|no|pl|pt|ru|sl|sv|tr|zh" id="tmdbtrailerlanguage" default="cs" enable="!eq(-1,false)"/>
+    <setting label="30131" type="bool" id="tmdbtrailer" default="true"/>
+    <setting label="30132" type="select" subsetting="true" values="bg|cs|da|de|el|en|es|fi|fr|he|hr|hu|it|ja|ko|nl|no|pl|pt|ru|sl|sv|tr|zh" id="tmdbtrailerlanguage" default="cs" enable="!eq(-1,false)"/>
     </category>
 </settings>
