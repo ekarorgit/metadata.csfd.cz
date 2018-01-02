@@ -193,9 +193,9 @@
                 <expression repeat="no" trim="1" noclean="0">&lt;h2 class=&quot;average&quot;&gt;[^0-9]*([0-9]+)%</expression>
             </RegExp>
             <!-- votes -->
-            <RegExp input="$$1" output="&lt;votes&gt;\1&lt;/votes&gt;" dest="7+">
-                <expression repeat="no" trim="1" noclean="0">všechna hodnocení&lt;br /&gt; \(([^\)]*)\)</expression>
-            </RegExp>
+            <RegExp input="$$1" output="&lt;votes&gt;\1\2&lt;/votes&gt;" dest="7+">
+                <expression repeat="no" trim="1" noclean="0">&quot;rating-count-link&quot;[^(]*\((\d+)(?:[^0-9)]*(\d+))?\)\s*&lt;/div&gt;</expression>
+            </RegExp>s
             <!-- year -->
             <RegExp input="$$1" output="&lt;year&gt;\1&lt;/year&gt;" dest="7+">
                 <expression repeat="no" trim="1" noclean="0">&lt;span itemprop=&quot;dateCreated&quot;&gt;([0-9]+)&lt;/span&gt;</expression>
