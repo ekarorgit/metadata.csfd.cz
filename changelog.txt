@@ -1,3 +1,8 @@
+[B]3.8[/B]
+[fixed] vracena stranka primo z vyhledavani na csfd.cz
+[fixed] kolekce, fanart, poster, trailer z TMDB
+[added] volba preferovaneho jazyka pro fanart (standartne cs)
+
 [B]3.7[/B]
 [fixed] polozky v nastaveni
 [fixed] spravne stahuje pocet hlasu hodnoceni

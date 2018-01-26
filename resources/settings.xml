@@ -20,6 +20,7 @@
     <setting label="30104" type="select" subsetting="true" values="bg|cs|da|de|el|en|es|fi|fr|he|hr|hu|it|ja|ko|nl|no|pl|pt|ru|sl|sv|tr|zh" id="tmdbthumblanguage" default="cs" enable="!eq(-1,false)"/>
     <setting type="sep"/>
     <setting label="30111" type="bool" id="tmdbfanart" default="true"/> 
+    <setting label="30112" type="select" subsetting="true" values="bg|cs|da|de|el|en|es|fi|fr|he|hr|hu|it|ja|ko|nl|no|pl|pt|ru|sl|sv|tr|zh" id="tmdbfanartlanguage" default="cs" enable="!eq(-1,false)"/>
     <setting type="sep"/>
     <setting label="30121" type="bool" id="tmdbtrailer" default="true"/>
     <setting label="30122" type="select" subsetting="true" values="bg|cs|da|de|el|en|es|fi|fr|he|hr|hu|it|ja|ko|nl|no|pl|pt|ru|sl|sv|tr|zh" id="tmdbtrailerlanguage" default="cs" enable="!eq(-1,false)"/>

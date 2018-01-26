@@ -9,12 +9,12 @@
     </NfoUrl>     
 
     <CreateSearchUrl dest="8">
-        <RegExp input="$$1" output="&lt;url cache=&quot;CSFD.hledat-\1.html&quot;&gt;http://www.csfd.cz/hledat/?q=\1&lt;/url&gt;" dest="8">
+        <RegExp input="$$1" output="&lt;url gzip=&quot;yes&quot; cache=&quot;CSFD.hledat-\1.html&quot;&gt;http://www.csfd.cz/hledat/?q=\1&lt;/url&gt;" dest="8">
             <RegExp conditional="titlepartsremove" input="$$1" output="\1" dest="1">
                 <expression noclean="1">(.*)%20part%20\d+$</expression>
             </RegExp>
-            <RegExp conditional="yearsearchcsfd" input="$$2" output="+$$2" dest="1+">
-                <expression noclean="1" />
+            <RegExp conditional="yearsearchcsfd" input="$$2" output="+\1" dest="1+">
+                <expression>(\d+)</expression>
             </RegExp>
             <expression noclean="1"/>
         </RegExp>
@@ -22,10 +22,10 @@
 
     <GetSearchResults dest="8">
         <RegExp input="$$7" output="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;&lt;results sorted=&quot;yes&quot;&gt;\1&lt;/results&gt;" dest="8">
-            <RegExp input="$$6" output="&lt;entity&gt;&lt;title&gt;\2\3\4&lt;/title&gt;&lt;url gzip=&quot;yes&quot; cache=&quot;CSFD.prehled-\1.html&quot;&gt;http://www.csfd.cz/film/\1/prehled/&lt;/url&gt;&lt;/entity&gt;" dest="7+">
+           <RegExp input="$$6" output="&lt;entity&gt;&lt;title&gt;\2\3\4&lt;/title&gt;&lt;url gzip=&quot;yes&quot; cache=&quot;CSFD.prehled-\1.html&quot;&gt;http://www.csfd.cz/film/\1/prehled/&lt;/url&gt;&lt;/entity&gt;" dest="7+">
                 <!-- primo nalezeny film -->
-                <RegExp input="$$1" output="&lt;u&gt;\1&lt;/u&gt;&lt;t&gt;\2&lt;/t&gt;" dest="6">
-                    <expression repeat="no" noclean="1">&lt;title&gt;([^|]*) \| .*?&lt;.*?&quot;csfd.cz/film/(\d+[^/]*)/prehled/&quot;&gt;</expression>
+                <RegExp input="$$1" output="&lt;u&gt;\3&lt;/u&gt;&lt;t&gt;\1&lt;/t&gt;&lt;t1&gt; \2&lt;/t1&gt;" dest="6">
+                    <expression repeat="no" noclean="1">&lt;title&gt;([^|]*?)( \(\d+\))? \| .*?csfd.cz/film/(\d+[^/]*)/(?:prehled|komentare|galerie)/&quot;&gt;</expression>
                 </RegExp>
                 <!-- extract search-list -->
                 <RegExp input="$$1" output="\1" dest="1">
@@ -90,22 +90,22 @@
             <RegExp input="$$2" output="&lt;chain function=&quot;GetIMDBWritersById&quot;&gt;$$2&lt;/chain&gt;" dest="7+">
                 <expression />
             </RegExp>
-            <RegExp conditional="tmdbset" input="$$2" output="&lt;chain function=&quot;GetTMDBLangSetByIdChain&quot;&gt;$$2&lt;/chain&gt;" dest="7+">
+            <RegExp conditional="tmdbset" input="$$2" output="&lt;chain function=&quot;GetTMDBSetByIdChain&quot;&gt;$$2::$INFO[tmdbsetlanguage]&lt;/chain&gt;" dest="7+">
                 <expression />
             </RegExp>
             <RegExp conditional="imdbposter" input="$$2" output="&lt;url function=&quot;GetIMDBThumb&quot; cache=&quot;IMDB.media-$$2.html&quot;&gt;http://www.imdb.com/title/$$2/mediaindex&lt;/url&gt;" dest="7+">
                 <expression />
             </RegExp>
-            <RegExp conditional="tmdbposter" input="$$2" output="&lt;chain function=&quot;GetTMDBLangThumbsByIdChain&quot;&gt;$$2&lt;/chain&gt;" dest="7+">
+            <RegExp conditional="tmdbposter" input="$$2" output="&lt;chain function=&quot;GetTMDBThumbsByIdChain&quot;&gt;$$2::$INFO[tmdbthumblanguage]&lt;/chain&gt;" dest="7+">
                 <expression />
             </RegExp>
-            <RegExp conditional="tmdbfanart" input="$$2" output="&lt;chain function=&quot;GetTMDBFanartByIdChain&quot;&gt;$$2&lt;/chain&gt;" dest="7+">
+            <RegExp conditional="tmdbfanart" input="$$2" output="&lt;chain function=&quot;GetTMDBFanartByIdChain&quot;&gt;$$2::$INFO[tmdbfanartlanguage]&lt;/chain&gt;" dest="7+">
                 <expression />
             </RegExp>
-            <RegExp conditional="tmdbtrailer" input="$$2" output="&lt;chain function=&quot;GetTMDBLangTrailerByIdChain&quot;&gt;$$2&lt;/chain&gt;" dest="7+">
+            <RegExp conditional="tmdbtrailer" input="$$2" output="&lt;chain function=&quot;GetTMDBTrailerByIdChain&quot;&gt;$$2::$INFO[tmdbtrailerlanguage]&lt;/chain&gt;" dest="7+">
                 <expression />
             </RegExp>
-            <RegExp input="$$2" output="&lt;chain function=&quot;GetTMDBLangPlotByIdChain&quot;&gt;$$2&lt;/chain&gt;" dest="7+">
+            <RegExp input="$$2" output="&lt;chain function=&quot;GetTMDBPlotByIdChain&quot;&gt;$$2::$INFO[tmdbplotlanguage]&lt;/chain&gt;" dest="7+">
                 <expression />
             </RegExp>
 
