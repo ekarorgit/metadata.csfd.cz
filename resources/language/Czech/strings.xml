@@ -4,8 +4,9 @@
     <string id="30001">Zohlednit rok z názvu při vyhledávání</string>
     <string id="30002">Odstraňovat výrazy "part" z názvu filmu</string>
     <string id="30003">Zobrazit pouze hlavní (český) název</string>
-    <string id="30004">Zobrazit pouze původni název</string>
+    <string id="30004">Zobrazit pouze původní název</string>
     <string id="30005">Upřednostnit anglický název místo původního</string>
+    <string id="30006">Původní název před českým</string>
     <string id="30011">Získat název kolekce z themoviedb.org</string>
     <string id="30012">Preferovaný jazyk názvu kolekce</string>
     <string id="30021">Získat obsah z themoviedb.org</string>

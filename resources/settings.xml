@@ -3,9 +3,10 @@
     <category label="128">
     <setting label="30001" type="bool" id="yearsearchcsfd" default="true" />
     <setting label="30002" type="bool" id="titlepartsremove" default="false" />
-    <setting label="30003" type="bool" id="onlyczechtitle" default="false" enable="eq(1,false)"/>
-    <setting label="30004" type="bool" id="originaltitlecsfd" default="false" enable="eq(-1,false)"/>
-    <setting label="30005" type="bool" id="engtitlecsfd" default="false" enable="eq(-2,false)"/>
+    <setting label="30003" type="bool" id="onlyczechtitle" default="false" enable="eq(1,false) + eq(2,false)"/>
+    <setting label="30004" type="bool" id="originaltitlecsfd" default="false" enable="eq(-1,false) + eq(1,false)"/>
+    <setting label="30006" type="bool" id="originaltitlefirst" default="false" enable="eq(-2,false) + eq(-1,false)"/>
+    <setting label="30005" type="bool" id="engtitlecsfd" default="false" enable="eq(-3,false)"/>
     <setting type="sep"/>
     <setting label="30011" type="bool" id="tmdbset" default="true"/>
     <setting label="30012" type="select" subsetting="true" values="bg|cs|da|de|el|en|es|fi|fr|he|hr|hu|it|ja|ko|nl|no|pl|pt|ru|sl|sv|tr|zh" id="tmdbsetlanguage" default="en" enable="!eq(-1,false)"/>
