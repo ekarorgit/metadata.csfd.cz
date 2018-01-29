@@ -156,15 +156,30 @@
                     <expression noclean="1">(.+)</expression>
                 </RegExp>
 
+                <!-- CZE (ORIG) -->
                 <RegExp input="$$3" output="$$3" dest="6">
-                    <expression />
-                </RegExp>  
-                <RegExp conditional="!onlyczechtitle" input="$$4" output=" ($$4)" dest="6+">
-                    <expression noclean="1">(.+)</expression>
-                </RegExp>  
-                <RegExp conditional="originaltitle" input="$$4" output="$$4" dest="6">
-                    <expression noclean="1">(.+)</expression>
-                </RegExp>
+								    <expression />
+								</RegExp>  
+								<RegExp input="$$4" output=" ($$4)" dest="6+">
+								    <expression noclean="1">(.+)</expression>
+								</RegExp>  
+								
+								<!-- ORIG (CZE) -->
+								<RegExp conditional="originaltitlefirst" input="$$4" output="$$4" dest="6">
+								    <expression />
+								</RegExp>  
+								<RegExp conditional="originaltitlefirst" input="$$3" output=" ($$3)" dest="6+">
+								    <expression noclean="1">(.+)</expression>
+								</RegExp>  		
+								
+								<!-- ORIG -->
+								<RegExp conditional="originaltitlecsfd" input="$$4" output="$$4" dest="6">
+								    <expression />
+								</RegExp>
+								<!-- CZE -->
+								<RegExp conditional="onlyczechtitle" input="$$3" output="$$3" dest="6">
+								    <expression />
+								</RegExp>
                 <expression/>
             </RegExp>
 
