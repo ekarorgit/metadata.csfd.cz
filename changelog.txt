@@ -1,3 +1,12 @@
+[B]3.9[/B]
+[changed] prekopana volba a kombinace jazyku v nazvu filmu:
+  local - lokalizovany nazev z csfd (bere v uvahu odkud jde pripojeni)
+  original - prvni z dalsich uvedenych nazvu na csfd
+  en - Snazi se najit prioritne EN nazev z USA,GBR,CAN,AUS,IRL,NZL
+  cz - prvni uvedeny cesky nazev
+  sk - prvni uvedeny slovensky nazev
+[added] moznost stahovani obsazeni z TMDB
+
 [B]3.8[/B]
 [fixed] vracena stranka primo z vyhledavani na csfd.cz
 [fixed] kolekce, fanart, poster, trailer z TMDB

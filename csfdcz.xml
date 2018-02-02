@@ -58,12 +58,12 @@
                 <expression noclean="1">https?://(?:www\.)?csfd\.cz/film/(\d+-.*?)/(?:prehled|komentare|galerie)/</expression>
             </RegExp>
             <!-- fallback -->
-            <RegExp input="$$1" output="&lt;url function=&quot;GetFallbackDetails&quot; cache=&quot;$$2-main.html&quot;&gt;http://akas.imdb.com/title/$$2/&lt;/url&gt;" dest="7+">
-                <expression noclean="1" />
+            <RegExp output="&lt;url function=&quot;GetFallbackDetails&quot; cache=&quot;$$2-main.html&quot;&gt;http://akas.imdb.com/title/$$2/&lt;/url&gt;" dest="7+">
+                <expression />
             </RegExp>            
             <!-- CSFD info -->
-            <RegExp input="$$1" output="&lt;url function=&quot;GetCSFDDetails&quot; cache=&quot;CSFD.prehled-$$3.html&quot;&gt;http://www.csfd.cz/filmy/$$3/prehled/&lt;/url&gt;" dest="7+">
-                <expression noclean="1" />
+            <RegExp output="&lt;url function=&quot;GetCSFDDetails&quot; cache=&quot;CSFD.prehled-$$3.html&quot;&gt;http://www.csfd.cz/filmy/$$3/prehled/&lt;/url&gt;" dest="7+">
+                <expression />
             </RegExp>            
             <!-- Rest info -->
             <expression noclean="1"/>
@@ -77,39 +77,41 @@
             <expression>href=&quot;http://www.imdb.com/title/(tt[0-9]+)/&quot;</expression>
         </RegExp>
         <RegExp input="$$7" output="&lt;details&gt;\1&lt;/details&gt;" dest="8">
-
             <RegExp input="$$2" output="&lt;id&gt;\1&lt;/id&gt;" dest="7">
                 <expression noclean="1" />
             </RegExp>
-            <RegExp input="$$2" output="&lt;chain function=&quot;GetIMDBCastById&quot;&gt;$$2&lt;/chain&gt;" dest="7+">
-                <expression noclean="1" />
-            </RegExp>
-            <RegExp input="$$2" output="&lt;chain function=&quot;GetIMDBDirectorsById&quot;&gt;$$2&lt;/chain&gt;" dest="7+">
+            <RegExp conditional="tmdbcast" output="&lt;chain function=&quot;GetTMDBCastByIdChain&quot;&gt;$$2&lt;/chain&gt;" dest="7+">
                 <expression />
             </RegExp>
-            <RegExp input="$$2" output="&lt;chain function=&quot;GetIMDBWritersById&quot;&gt;$$2&lt;/chain&gt;" dest="7+">
+            <RegExp conditional="!tmdbcast" output="&lt;chain function=&quot;GetIMDBCastById&quot;&gt;$$2&lt;/chain&gt;" dest="7+">
                 <expression />
             </RegExp>
-            <RegExp conditional="tmdbset" input="$$2" output="&lt;chain function=&quot;GetTMDBSetByIdChain&quot;&gt;$$2::$INFO[tmdbsetlanguage]&lt;/chain&gt;" dest="7+">
+            <RegExp output="&lt;chain function=&quot;GetIMDBDirectorsById&quot;&gt;$$2&lt;/chain&gt;" dest="7+">
                 <expression />
             </RegExp>
-            <RegExp conditional="imdbposter" input="$$2" output="&lt;url function=&quot;GetIMDBThumb&quot; cache=&quot;IMDB.media-$$2.html&quot;&gt;http://www.imdb.com/title/$$2/mediaindex&lt;/url&gt;" dest="7+">
+            <RegExp output="&lt;chain function=&quot;GetIMDBWritersById&quot;&gt;$$2&lt;/chain&gt;" dest="7+">
                 <expression />
             </RegExp>
-            <RegExp conditional="tmdbposter" input="$$2" output="&lt;chain function=&quot;GetTMDBThumbsByIdChain&quot;&gt;$$2::$INFO[tmdbthumblanguage]&lt;/chain&gt;" dest="7+">
+            <RegExp conditional="tmdbset" output="&lt;chain function=&quot;GetTMDBSetByIdChain&quot;&gt;$$2::$INFO[tmdbsetlanguage]&lt;/chain&gt;" dest="7+">
                 <expression />
             </RegExp>
-            <RegExp conditional="tmdbfanart" input="$$2" output="&lt;chain function=&quot;GetTMDBFanartByIdChain&quot;&gt;$$2::$INFO[tmdbfanartlanguage]&lt;/chain&gt;" dest="7+">
+            <RegExp conditional="imdbposter" output="&lt;url function=&quot;GetIMDBThumb&quot; cache=&quot;IMDB.media-$$2.html&quot;&gt;http://www.imdb.com/title/$$2/mediaindex&lt;/url&gt;" dest="7+">
                 <expression />
             </RegExp>
-            <RegExp conditional="tmdbtrailer" input="$$2" output="&lt;chain function=&quot;GetTMDBTrailerByIdChain&quot;&gt;$$2::$INFO[tmdbtrailerlanguage]&lt;/chain&gt;" dest="7+">
+            <RegExp conditional="tmdbposter" output="&lt;chain function=&quot;GetTMDBThumbsByIdChain&quot;&gt;$$2::$INFO[tmdbthumblanguage]&lt;/chain&gt;" dest="7+">
                 <expression />
             </RegExp>
-            <RegExp input="$$2" output="&lt;chain function=&quot;GetTMDBPlotByIdChain&quot;&gt;$$2::$INFO[tmdbplotlanguage]&lt;/chain&gt;" dest="7+">
+            <RegExp conditional="tmdbfanart" output="&lt;chain function=&quot;GetTMDBFanartByIdChain&quot;&gt;$$2::$INFO[tmdbfanartlanguage]&lt;/chain&gt;" dest="7+">
+                <expression />
+            </RegExp>
+            <RegExp conditional="tmdbtrailer" output="&lt;chain function=&quot;GetTMDBTrailerByIdChain&quot;&gt;$$2::$INFO[tmdbtrailerlanguage]&lt;/chain&gt;" dest="7+">
+                <expression />
+            </RegExp>
+            <RegExp output="&lt;chain function=&quot;GetTMDBPlotByIdChain&quot;&gt;$$2::$INFO[tmdbplotlanguage]&lt;/chain&gt;" dest="7+">
                 <expression />
             </RegExp>
 
-            <RegExp input="$$2" output="&lt;url function=&quot;GetRestIMDBInfo&quot; cache=&quot;IMDB.combined-$$2.html&quot;&gt;http://akas.imdb.com/title/$$2/combined&lt;/url&gt;" dest="7+">
+            <RegExp output="&lt;url function=&quot;GetRestIMDBInfo&quot; cache=&quot;IMDB.combined-$$2.html&quot;&gt;http://akas.imdb.com/title/$$2/combined&lt;/url&gt;" dest="7+">
                 <expression />
             </RegExp>
             <expression noclean="1" />
@@ -120,51 +122,117 @@
     <GetCSFDDetails dest="8">
         <RegExp input="$$7" output="&lt;details&gt;\1&lt;/details&gt;" dest="8">
 
-            <!-- Titles -->
-            <RegExp input="$$6" output="&lt;title&gt;\1&lt;/title&gt;&lt;originaltitle&gt;$$4&lt;/originaltitle&gt;" dest="7+">
-                <RegExp input="$$1" output="\1" dest="3">
-                    <expression noclean="1" trim="1">&lt;h1[^&gt;]*&gt;([^&lt;]*)&lt;</expression>
-                </RegExp>  
-                <RegExp input="$$1" output="\1" dest="4">
-                    <expression noclean="1" trim="1">images/flags/[^&lt;]*&lt;h3[^&gt;]*&gt;([^&lt;]*)&lt;</expression>
-                </RegExp>
-                <RegExp conditional="engtitlecsfd" input="$$5" output="\1" dest="4">
-                    <!-- New Zealand -->
-                    <RegExp input="$$1" output="\1" dest="5">
-                        <expression trim="1">images/flags/159/571/159571944_5bb9fe.gif[^&lt;]*&lt;h3[^&gt;]*&gt;([^&lt;]*)&lt;</expression>
-                    </RegExp>
-                    <!-- Ireland -->
-                    <RegExp input="$$1" output="\1" dest="5">
-                        <expression noclean="1" trim="1">images/flags/159/571/159571886_c8fb93.gif[^&lt;]*&lt;h3[^&gt;]*&gt;([^&lt;]*)&lt;</expression>
-                    </RegExp>
-                    <!-- Australia -->
-                    <RegExp input="$$1" output="\1" dest="5">
-                        <expression noclean="1" trim="1">images/flags/159/571/159571895_278ffd.gif[^&lt;]*&lt;h3[^&gt;]*&gt;([^&lt;]*)&lt;</expression>
-                    </RegExp>
-                    <!-- Canada -->
-                    <RegExp input="$$1" output="\1" dest="5">
-                        <expression noclean="1" trim="1">images/flags/159/571/159571943_a94257.gif[^&lt;]*&lt;h3[^&gt;]*&gt;([^&lt;]*)&lt;</expression>
-                    </RegExp>
-                    <!-- GB -->
-                    <RegExp input="$$1" output="\1" dest="5">
-                        <expression noclean="1" trim="1">images/flags/159/572/159572086_463ca5.gif[^&lt;]*&lt;h3[^&gt;]*&gt;([^&lt;]*)&lt;</expression>
-                    </RegExp>
-                    <!-- USA -->
-                    <RegExp input="$$1" output="\1" dest="5">
-                        <expression noclean="1" trim="1">images/flags/159/572/159572019_fcfacc.gif[^&lt;]*&lt;h3[^&gt;]*&gt;([^&lt;]*)&lt;</expression>
-                    </RegExp>
-                    <expression noclean="1">(.+)</expression>
-                </RegExp>
-
-                <RegExp input="$$3" output="$$3" dest="6">
+          <!-- Titles -->
+            <!-- local title $$11 -->
+            <RegExp input="$$1" output="\1" dest="11">
+                <expression noclean="1" trim="1">&lt;h1[^&gt;]*&gt;([^&lt;]*)&lt;</expression>
+            </RegExp>  
+            <!-- original title $$12 -->
+            <RegExp input="$$1" output="\1" dest="12">
+                <expression noclean="1" trim="1">images/flags/[^&lt;]*&lt;h3[^&gt;]*&gt;([^&lt;]*)&lt;</expression>
+            </RegExp>
+            <!-- EN title $$13 without fallback (can be empty)-->
+            <!-- New Zealand -->
+            <RegExp input="$$1" output="\1" dest="13">
+                <expression noclean="1" trim="1">images/flags/159/571/159571944_5bb9fe.gif[^&lt;]*&lt;h3[^&gt;]*&gt;([^&lt;]*)&lt;</expression>
+            </RegExp>
+            <!-- Ireland -->
+            <RegExp input="$$1" output="\1" dest="13">
+                <expression noclean="1" trim="1">images/flags/159/571/159571886_c8fb93.gif[^&lt;]*&lt;h3[^&gt;]*&gt;([^&lt;]*)&lt;</expression>
+            </RegExp>
+            <!-- Australia -->
+            <RegExp input="$$1" output="\1" dest="13">
+                <expression noclean="1" trim="1">images/flags/159/571/159571895_278ffd.gif[^&lt;]*&lt;h3[^&gt;]*&gt;([^&lt;]*)&lt;</expression>
+            </RegExp>
+            <!-- Canada -->
+            <RegExp input="$$1" output="\1" dest="13">
+                <expression noclean="1" trim="1">images/flags/159/571/159571943_a94257.gif[^&lt;]*&lt;h3[^&gt;]*&gt;([^&lt;]*)&lt;</expression>
+            </RegExp>
+            <!-- GB -->
+            <RegExp input="$$1" output="\1" dest="13">
+                <expression noclean="1" trim="1">images/flags/159/572/159572086_463ca5.gif[^&lt;]*&lt;h3[^&gt;]*&gt;([^&lt;]*)&lt;</expression>
+            </RegExp>
+            <!-- USA -->
+            <RegExp input="$$1" output="\1" dest="13">
+                <expression noclean="1" trim="1">images/flags/159/572/159572019_fcfacc.gif[^&lt;]*&lt;h3[^&gt;]*&gt;([^&lt;]*)&lt;</expression>
+            </RegExp>
+            <!-- CZ title $$14 with local fallback -->
+            <RegExp output="$$11" dest="14">
+                <expression />
+            </RegExp>
+            <RegExp input="$$1" output="\1" dest="14">
+                <expression trim="1">images/flags/159/571/159571898_ce0ce5.gif[^&lt;]*&lt;h3[^&gt;]*&gt;([^&lt;]*)&lt;</expression>
+            </RegExp>
+            <!-- SK title $$15 with local fallback -->
+            <RegExp output="$$11" dest="15">
+                <expression />
+            </RegExp>
+            <RegExp input="$$1" output="\1" dest="15">
+                <expression trim="1">images/flags/159/571/159571967_be0783.gif[^&lt;]*&lt;h3[^&gt;]*&gt;([^&lt;]*)&lt;</expression>
+            </RegExp>
+          <!-- construct title -->
+            <!-- primary selection -->
+            <RegExp output="$$11" dest="16">
+                <expression />
+            </RegExp>
+            <RegExp input="$INFO[titleprimaryl]" output="$$12" dest="16">
+                <expression noclean="1" >^original$</expression>
+            </RegExp>
+            <RegExp input="$INFO[titleprimaryl]" output="$$6" dest="16">
+                <!-- local fallback for EN -->
+                <RegExp output="$$11" dest="6">
                     <expression />
-                </RegExp>  
-                <RegExp conditional="!onlyczechtitle" input="$$4" output=" ($$4)" dest="6+">
-                    <expression noclean="1">(.+)</expression>
-                </RegExp>  
-                <RegExp conditional="originaltitle" input="$$4" output="$$4" dest="6">
+                </RegExp>
+                <RegExp input="$$13" output="$$13" dest="6">
                     <expression noclean="1">(.+)</expression>
                 </RegExp>
+                <expression noclean="1" >^en$</expression>
+            </RegExp>
+            <RegExp input="$INFO[titleprimaryl]" output="$$14" dest="16">
+                <expression noclean="1" >^cs$</expression>
+            </RegExp>
+            <RegExp input="$INFO[titleprimaryl]" output="$$15" dest="16">
+                <expression noclean="1" >^sk$</expression>
+            </RegExp>
+            
+            <!-- secondary selection -->
+            <RegExp output="$$12" dest="17">
+                <expression />
+            </RegExp>
+            <RegExp input="$INFO[titlesecondaryl]" output="$$6" dest="17">
+                <!-- original fallback for EN -->
+                <RegExp output="$$12" dest="6">
+                    <expression />
+                </RegExp>
+                <RegExp input="$$13" output="$$13" dest="6">
+                    <expression noclean="1">(.+)</expression>
+                </RegExp>
+                <expression noclean="1" >^en$</expression>
+            </RegExp>
+
+          <!-- title combination selection -->
+            <!-- fallback for missing  secondary -->
+            <RegExp output="$$16" dest="20">
+                <expression />
+            </RegExp>
+            <!-- primary with secondary -->
+            <RegExp input="$$17" output="$$16 ($$17)" dest="20">
+                <expression>(.+)</expression>
+            </RegExp>
+            <!-- swapped primary with secondary override -->
+            <RegExp conditional="titleswap" input="$$17" output="$$17 ($$16)" dest="20">
+                <expression>(.+)</expression>
+            </RegExp>
+            <!-- remove secondary if same as primary override -->
+            <RegExp conditional="titlesame" input="$$16" output="$$16" dest="20">
+                <expression noclean="1">^$$17$</expression>
+            </RegExp>
+            <!-- primary only override -->
+            <RegExp conditional="!titlesecondary" output="$$16" dest="20">
+                <expression />
+            </RegExp>
+            <!-- output title -->
+            <RegExp output="&lt;title&gt;$$20&lt;/title&gt;&lt;originaltitle&gt;$$12&lt;/originaltitle&gt;" dest="7+">
                 <expression/>
             </RegExp>
 
@@ -173,11 +241,11 @@
                 <RegExp input="$$1" output="\1&lt;br&gt;  " dest="4">
                     <expression clear="yes" noclean="1">&lt;h3&gt;Obsah.*?&lt;/h3&gt;(.*?)&lt;span class=&quot;source</expression>          
                 </RegExp>
-                <RegExp input="" output="" dest="5"><expression/></RegExp>
+                <RegExp output="" dest="5"><expression/></RegExp>
                 <RegExp input="$$4" output="\1 " dest="5+">
                     <expression repeat="yes" noclean="1">(.*?)\s\s+</expression>          
                 </RegExp>
-                <RegExp input="" output="" dest="6"><expression/></RegExp>
+                <RegExp output="" dest="6"><expression/></RegExp>
                 <RegExp input="$$5" output="\1\n" dest="6+">
                     <expression repeat="yes" trim="yes">(.*?)&lt;br\s*/?&gt;\s*</expression>
                 </RegExp>

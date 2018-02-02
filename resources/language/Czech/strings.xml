@@ -3,13 +3,11 @@
     <!-- settings labels -->
     <string id="30001">Zohlednit rok z názvu při vyhledávání</string>
     <string id="30002">Odstraňovat výrazy "part" z názvu filmu</string>
-    <string id="30003">Zobrazit pouze hlavní (český) název</string>
-    <string id="30004">Zobrazit pouze původni název</string>
-    <string id="30005">Upřednostnit anglický název místo původního</string>
     <string id="30011">Získat název kolekce z themoviedb.org</string>
     <string id="30012">Preferovaný jazyk názvu kolekce</string>
     <string id="30021">Získat obsah z themoviedb.org</string>
     <string id="30022">Preferovaný jazyk obsahu</string>
+    <string id="30031">Získat obsazení z themoviedb.org místo imdb.com</string>
     <string id="30100">Filmová média</string>
     <string id="30101">Stahovat plakát z ČSFD</string>
     <string id="30102">Stahovat plakát z imdb.com</string>
@@ -19,5 +17,11 @@
     <string id="30112">Preferovaný jazyk fanartu</string>
     <string id="30121">Povolit upoutávky z themoviedb.org</string>
     <string id="30122">Preferovaný jazyk upoutávky</string>
+    <string id="30200">Název filmu</string>
+    <string id="30201">Preferovaný jazyk názvu filmu (fallback:local)</string>
+    <string id="30202">Zobrazit druhý název filmu v závorce</string>
+    <string id="30203">Preferovaný jazyk druhého názvu (fallback:original)</string>
+    <string id="30204">Prohodit první a druhý název</string>
+    <string id="30205">Skrýt druhý název pokud jsou názvy shodné</string>
 
 </strings>

@@ -3,22 +3,25 @@
     <!-- settings labels -->
     <string id="30001">Force year from filename in search</string>
     <string id="30002">Remove "part X" from title</string>
-    <string id="30003">Only main (czech) title</string>
-    <string id="30004">Show only original title</string>
-    <string id="30005">Preffer english title instead of original</string>
     <string id="30011">Get collection name from themoviedb.org</string>
     <string id="30012">Preferred collection name language</string>
     <string id="30021">Get plot from themoviedb.org</string>
     <string id="30022">Preferred plot language</string>
+    <string id="30031">Get cast from themoviedb.org rather than imdb.com</string>
     <string id="30100">Medias</string>
     <string id="30101">Download CSFD poster</string>
-    <string id="30102">Enable posters from imdb.org</string>
+    <string id="30102">Enable posters from imdb.com</string>
     <string id="30103">Enable posters from themoviedb.org</string>
     <string id="30104">Preferred thumb language</string>
     <string id="30111">Download fanart from themoviedb.org</string>
     <string id="30112">Preferred fanart language</string>
     <string id="30121">Enable trailers from themoviedb.org</string>
     <string id="30122">Preferred trailer language</string>
-
+    <string id="30200">Film title</string>
+    <string id="30201">Preffered title language (fallback:local)</string>
+    <string id="30202">Show secondary title</string>
+    <string id="30203">Preffered secondary title language (fallback:original)</string>
+    <string id="30204">Swap primary and secondary titles</string>
+    <string id="30205">Hide secondary title if same as primary</string>
 </strings>
 
