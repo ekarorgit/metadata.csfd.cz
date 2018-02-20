@@ -1,3 +1,6 @@
+[B]3.10[/B]
+[fix] get imdbid from https links
+
 [B]3.9[/B]
 [changed] prekopana volba a kombinace jazyku v nazvu filmu:
   local - lokalizovany nazev z csfd (bere v uvahu odkud jde pripojeni)

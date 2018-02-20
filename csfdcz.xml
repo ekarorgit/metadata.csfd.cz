@@ -3,7 +3,7 @@
 <scraper date="2017-11-03" framework="1.1" language="cs">
 
     <NfoUrl dest="3">
-        <RegExp input="$$1" output="&lt;url gzip=&quot;yes&quot; cache=&quot;CSFD.prehled-\1.html&quot;&gt;https://www.csfd.cz/film/\1/prehled/&lt;/url&gt;&lt;id&gt;\1&lt;/id&gt;" dest="3">
+        <RegExp input="$$1" output="&lt;url gzip=&quot;yes&quot; cache=&quot;CSFD.prehled-\1.html&quot;&gt;http://www.csfd.cz/film/\1/prehled/&lt;/url&gt;&lt;id&gt;\1&lt;/id&gt;" dest="3">
             <expression>https?://(?:www\.)?csfd\.cz/film/(\d+-.*?)/</expression>
         </RegExp>
     </NfoUrl>     
@@ -51,7 +51,7 @@
         <RegExp input="$$7" output="&lt;details&gt;&lt;id&gt;$$2&lt;/id&gt;\1&lt;/details&gt;" dest="8">
             <!-- IMDB ID -->
             <RegExp input="$$1" output="tt\1" dest="2">
-                <expression noclean="1" trim="1">&lt;a href=&quot;http:/[^&quot;]*imdb[^/]*/.itle\D*(\d*)[^&quot;]*&quot;</expression>
+                <expression noclean="1" trim="1">&lt;a href=&quot;https?://[^&quot;]*imdb\.com/title/tt(\d+)/</expression>
             </RegExp>
             <!-- CSFD URL -->
             <RegExp input="$$1" output="\1" dest="3">
