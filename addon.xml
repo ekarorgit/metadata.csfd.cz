@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="metadata.csfd.cz"
        name="ČSFD.cz"
        version="3.10"
@@ -12,11 +12,14 @@
   <extension point="xbmc.addon.metadata">
     <summary lang="en">ČSFD Movie Scraper</summary>
     <summary lang="cs">ČSFD Metadata Stahovač</summary>
+    <summary lang="sk">ČSFD Metadata Sťahovač</summary>
     <description lang="en">Download Movie information from www.csfd.cz (czech-slovak movie database) / combined with www.imdb.com and themoviedb.org</description>
     <description lang="cs">Stahuje informace o filmech z csfd.cz (kombinovaně s imdb.com a themoviedb.org). Volně navázáno na původní verzi od LD a verzi 3.4h nalezenou na netu. (http://ldevel.blogspot.sk/)</description>
+    <description lang="sk">Sťahuje informácie o filmoch z csfd.cz (kombinovane z imdb.com a themoviedb.org). Voľne naviazané na pôvodnú verziu od LD a verziu 3.4h nájdenú na webe. (http://ldevel.blogspot.sk/)</description>
     <disclaimer lang="cs">Pro nahlášení bugu navštivte www.github.com/ekarorgit/metadata.csfd.cz</disclaimer>
     <disclaimer lang="en">For bugs visit www.github.com/ekarorgit/metadata.csfd.cz</disclaimer>
-    <language>cs en</language>
+    <disclaimer lang="sk">Pre nahlásenie chyby navštívte www.github.com/ekarorgit/metadata.csfd.cz</disclaimer>
+    <language>cs en sk</language>
     <platform>all</platform>
     <license>GNU GENERAL PUBLIC LICENSE, Version 3, 29 June 2007</license>
     <forum></forum>
