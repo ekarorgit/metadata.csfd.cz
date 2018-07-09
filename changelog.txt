@@ -1,3 +1,6 @@
+[B]3.11[/B]
+[added] Slovak translation (mvalec)
+
 [B]3.10[/B]
 [fix] get imdbid from https links
 
