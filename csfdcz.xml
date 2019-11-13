@@ -1,15 +1,16 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <!-- version 3.5 -->
+<!-- user agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36 -->
 <scraper date="2017-11-03" framework="1.1" language="cs">
 
     <NfoUrl dest="3">
-        <RegExp input="$$1" output="&lt;url gzip=&quot;yes&quot; cache=&quot;CSFD.prehled-\1.html&quot;&gt;http://www.csfd.cz/film/\1/prehled/&lt;/url&gt;&lt;id&gt;\1&lt;/id&gt;" dest="3">
-            <expression>https?://(?:www\.)?csfd\.cz/film/(\d+-.*?)/</expression>
+        <RegExp input="$$1" output="&lt;url gzip=&quot;yes&quot; cache=&quot;CSFD.prehled-\1.html&quot;&gt;http://www.csfd.cz/film/\1/prehled/|user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36&lt;/url&gt;&lt;id&gt;\1&lt;/id&gt;" dest="3">
+            <expression>https?://(?:www\.)?csfd\.cz/film/(\d+-.*?)/|user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36</expression>
         </RegExp>
     </NfoUrl>     
 
     <CreateSearchUrl dest="8">
-        <RegExp input="$$1" output="&lt;url gzip=&quot;yes&quot; cache=&quot;CSFD.hledat-\1.html&quot;&gt;http://www.csfd.cz/hledat/?q=\1&lt;/url&gt;" dest="8">
+        <RegExp input="$$1" output="&lt;url gzip=&quot;yes&quot; cache=&quot;CSFD.hledat-\1.html&quot;&gt;http://www.csfd.cz/hledat/?q=\1|user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36&lt;/url&gt;" dest="8">
             <RegExp conditional="titlepartsremove" input="$$1" output="\1" dest="1">
                 <expression noclean="1">(.*)%20part%20\d+$</expression>
             </RegExp>
@@ -22,10 +23,10 @@
 
     <GetSearchResults dest="8">
         <RegExp input="$$7" output="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;&lt;results sorted=&quot;yes&quot;&gt;\1&lt;/results&gt;" dest="8">
-           <RegExp input="$$6" output="&lt;entity&gt;&lt;title&gt;\2\3\4&lt;/title&gt;&lt;url gzip=&quot;yes&quot; cache=&quot;CSFD.prehled-\1.html&quot;&gt;http://www.csfd.cz/film/\1/prehled/&lt;/url&gt;&lt;/entity&gt;" dest="7+">
+           <RegExp input="$$6" output="&lt;entity&gt;&lt;title&gt;\2\3\4&lt;/title&gt;&lt;url gzip=&quot;yes&quot; cache=&quot;CSFD.prehled-\1.html&quot;&gt;http://www.csfd.cz/film/\1/prehled/|user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36&lt;/url&gt;&lt;/entity&gt;" dest="7+">
                 <!-- primo nalezeny film -->
                 <RegExp input="$$1" output="&lt;u&gt;\3&lt;/u&gt;&lt;t&gt;\1&lt;/t&gt;&lt;t1&gt; \2&lt;/t1&gt;" dest="6">
-                    <expression repeat="no" noclean="1">&lt;title&gt;([^|]*?)( \(\d+\))? \| .*?csfd.cz/film/(\d+[^/]*)/(?:prehled|komentare|galerie)/&quot;&gt;</expression>
+                    <expression repeat="no" noclean="1">&lt;title&gt;([^|]*?)( \(\d+\))? \| .*?csfd.cz/film/(\d+[^/]*)/(?:prehled|komentare|galerie)/&quot;|user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36&gt;</expression>
                 </RegExp>
                 <!-- extract search-list -->
                 <RegExp input="$$1" output="\1" dest="1">
@@ -62,7 +63,7 @@
                 <expression />
             </RegExp>            
             <!-- CSFD info -->
-            <RegExp output="&lt;url function=&quot;GetCSFDDetails&quot; cache=&quot;CSFD.prehled-$$3.html&quot;&gt;http://www.csfd.cz/filmy/$$3/prehled/&lt;/url&gt;" dest="7+">
+            <RegExp output="&lt;url function=&quot;GetCSFDDetails&quot; cache=&quot;CSFD.prehled-$$3.html&quot;&gt;http://www.csfd.cz/filmy/$$3/prehled/|user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36&lt;/url&gt;" dest="7+">
                 <expression />
             </RegExp>            
             <!-- Rest info -->
@@ -278,7 +279,7 @@
             </RegExp>
             <!-- csfd thumb-->
             <RegExp conditional="csfdposter" input="$$1" output="&lt;thumb&gt;http://\1&lt;/thumb&gt;" dest="7+">
-                <expression repeat="yes" noclean="1">(img.csfd.cz/files/images/film/posters[^&quot;]*)(?:[?][hw][0-9]+)&quot;</expression>
+                <expression repeat="yes" noclean="1">(img.csfd.cz/files/images/film/posters[^&quot;]*)(?:[?][hw][0-9]+)|user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36&quot;</expression>
             </RegExp>              
 
             <expression noclean="1" />    
