@@ -1,3 +1,6 @@
+[B]3.12[/B]
+[fix] https with user-agent for csfd.cz calls (JimmyS83)
+
 [B]3.11[/B]
 [added] Slovak translation (mvalec)
 
