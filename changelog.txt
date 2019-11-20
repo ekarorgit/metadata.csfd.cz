@@ -1,3 +1,6 @@
+[B]3.13[/B]
+[fix] rolled back to http for imdb
+
 [B]3.12[/B]
 [fix] https with user-agent for csfd.cz calls (JimmyS83)
 
