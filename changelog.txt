@@ -1,3 +1,6 @@
+[B]3.14[/B]
+[fix] gracefully handle missing imdb id on csfd page
+
 [B]3.13[/B]
 [fix] rolled back to http for imdb
 
@@ -41,13 +44,13 @@ Logika založena na metadata.csfd.cz verzi 3.4h, ale skoro celé přepsáno. Zm�
 [added]Fallback obsahu z TMDB
 [added]Možnost stahovaní obsahu pouze z TMDB
 [added]Scraper opět najde výsledek hledaní s jedním výsledkem (např: Metegol)
-[added]Volba stahovaní plakátu z IMDB 
+[added]Volba stahovaní plakátu z IMDB
 [added]Ve výsledku hledání zobrazuje i search-name
 [added]Používání cache
 
 [B]3.4h[/B]
 [removed]Odebrána možnost stahování obsahu z MoviePosterDB a HD-Trailers.net
- 
+
 [B]3.4g[/B]
 [added]Ukládání id filmu z IMDB do databáze pro práci s dalšími doplňky
 

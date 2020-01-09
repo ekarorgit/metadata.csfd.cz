@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="metadata.csfd.cz"
        name="ČSFD.cz"
-       version="3.13"
+       version="3.14"
        provider-name="ekarorgit">
   <requires>
     <import addon="xbmc.metadata" version="2.1.0"/>
@@ -28,7 +28,7 @@
     <source>www.github.com/ekarorgit/metadata.csfd.cz</source>
     <news> v 3.13 (20.11.2019)
     [fix] rolled back to http for imdb
-    
+
  v 3.12 (14.11.2019)
     [fix] https with user-agent for csfd.cz calls ((JimmyS83)
 
@@ -51,15 +51,15 @@
     [fixed] vracena stranka primo z vyhledavani
     [fixed] kolekce, fanart, poster, trailer z TMDB
     [added] volba preferovaneho jazyka pro fanart (standartne cs)
-    
+
  v 3.7 (31.12.2017)
     [fixed] polozky v nastaveni
     [fixed] spravne stahuje pocet hlasu hodnoceni
-    
+
  v 3.6 (28.12.2017)
     [fixed] Smazáno nadbytečné odsazováni v popisu filmu
     [added] Možnost zapnout anglické názvy místo "původních"
-    
+
  v 3.5 (23.11.2017)
     Logika založena na metadata.csfd.cz verzi 3.4h, ale skoro celé přepsáno. Změny:
     [fixed] Automatické přesměrovaní IMDB ID na správné (např: imdbid pro film Neon Demon)
@@ -69,7 +69,7 @@
     [added] Fallback obsahu z TMDB
     [added] Možnost stahovaní obsahu pouze z TMDB
     [added] Scraper opět najde výsledek hledaní s jedním výsledkem (např: Metegol)
-    [added] Volba stahovaní plakátu z IMDB 
+    [added] Volba stahovaní plakátu z IMDB
     [added] Ve výsledku hledání zobrazuje i search-name
     [added] Používání cache
     </news>
