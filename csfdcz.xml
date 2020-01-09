@@ -72,9 +72,9 @@
             <RegExp input="$$1" output="\1" dest="3">
                 <expression noclean="1">https?://(?:www\.)?csfd\.cz/film/(\d+-.*?)/(?:prehled|komentare|galerie)/</expression>
             </RegExp>
-            <!-- fallback -->
-            <RegExp output="&lt;url function=&quot;GetFallbackDetails&quot; cache=&quot;$$2-main.html&quot;&gt;http://akas.imdb.com/title/$$2/&lt;/url&gt;" dest="7+">
-                <expression />
+            <!-- fallback - handle empty IMDB id -->
+            <RegExp input="$$2" output="&lt;url function=&quot;GetFallbackDetails&quot; cache=&quot;$$2-main.html&quot;&gt;http://akas.imdb.com/title/$$2/&lt;/url&gt;" dest="7+">
+                <expression>(.+)</expression>
             </RegExp>
             <!-- CSFD info -->
             <RegExp output="&lt;url function=&quot;GetCSFDDetails&quot; cache=&quot;CSFD.prehled-$$3.html&quot;&gt;https://www.csfd.cz/filmy/$$3/prehled/|$$10&lt;/url&gt;" dest="7+">
@@ -82,6 +82,10 @@
             </RegExp>
             <!-- Rest info -->
             <expression noclean="1"/>
+        </RegExp>
+        <!-- clean $$7 to prevent infinite recursion -->
+        <RegExp output="" dest="7">
+            <expression />
         </RegExp>
     </GetDetails>
 
