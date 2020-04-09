@@ -5,7 +5,7 @@
 	<!-- output: <url>*</url> -->
 	<!-- output: $$10=user-agent -->
     <NfoUrl dest="3">
-        <RegExp input="" output="user-agent=Mozilla%2F5.0%20%28Windows%20NT%206.1%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F78.0.3904.97%20Safari%2F537.36" dest="10"><expression/></RegExp>
+        <RegExp output="user-agent=Mozilla%2F5.0%20%28Windows%20NT%206.1%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F78.0.3904.97%20Safari%2F537.36" dest="10"><expression/></RegExp>
         <RegExp input="$$1" output="&lt;url gzip=&quot;yes&quot; cache=&quot;CSFD.prehled-\1.html&quot;&gt;https://www.csfd.cz/film/\1/prehled/|$$10&lt;/url&gt;&lt;id&gt;\1&lt;/id&gt;" dest="3">
             <expression>https?://(?:www\.)?csfd\.cz/film/(\d+-.*?)/</expression>
         </RegExp>
@@ -14,9 +14,9 @@
 	<!-- input : $$1=query string -->
 	<!-- output: <url>*</url> -->
 	<!-- output: $$10=user-agent -->
+	<!-- output: $$8=search url object -->
     <CreateSearchUrl clearbuffers="no" dest="8">
-        <RegExp input="" output="user-agent=Mozilla%2F5.0%20%28Windows%20NT%206.1%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F78.0.3904.97%20Safari%2F537.36" dest="10"><expression/></RegExp>
-
+        <RegExp output="user-agent=Mozilla%2F5.0%20%28Windows%20NT%206.1%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F78.0.3904.97%20Safari%2F537.36" dest="10"><expression/></RegExp>
         <RegExp input="$$1" output="&lt;url gzip=&quot;yes&quot; cache=&quot;CSFD.hledat-\1.html&quot;&gt;https://www.csfd.cz/hledat/?q=\1|$$10&lt;/url&gt;" dest="8">
             <RegExp conditional="titlepartsremove" input="$$1" output="\1" dest="1">
                 <expression noclean="1">(.*)%20part%20\d+$</expression>
@@ -34,7 +34,7 @@
 	<!-- output: <results><entity><title>*</title><url>*</url></entity>*</results> -->
     <GetSearchResults clearbuffers="no" dest="8">
         <RegExp input="$$7" output="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;&lt;results sorted=&quot;yes&quot;&gt;\1&lt;/results&gt;" dest="8">
-           <RegExp input="$$6" output="&lt;entity&gt;&lt;title&gt;\2\3\4&lt;/title&gt;&lt;url gzip=&quot;yes&quot; cache=&quot;CSFD.prehled-\1.html&quot;&gt;https://www.csfd.cz/film/\1/prehled/|$$10&lt;/url&gt;&lt;/entity&gt;" dest="7+">
+           <RegExp input="$$6" output="&lt;entity&gt;&lt;title&gt;\2\3\4&lt;/title&gt;&lt;url gzip=&quot;yes&quot; cache=&quot;CSFD.prehled-\1.html&quot;&gt;https://www.csfd.cz/film/\1/prehled/|$$10&lt;/url&gt;&lt;/entity&gt;" dest="7">
                 <!-- primo nalezeny film -->
                 <RegExp input="$$1" output="&lt;u&gt;\3&lt;/u&gt;&lt;t&gt;\1&lt;/t&gt;&lt;t1&gt; \2&lt;/t1&gt;" dest="6">
                     <expression repeat="no" noclean="1">&lt;title&gt;([^|]*?)( \(\d+\))? \| .*?csfd.cz/film/(\d+[^/]*)/(?:prehled|komentare|galerie)/&quot;&gt;</expression>
@@ -60,85 +60,129 @@
     </GetSearchResults>
 
 	<!-- input : $$1=detail html -->
-	<!-- input : $$10=user-agent -->
-	<!-- output: <details><entity><title>*</title><url>*</url></entity>*</details> -->
+	<!-- output : $$10=user-agent -->
+	<!-- output: <details><url function></function>...*</details> -->
     <GetDetails clearbuffers="no" dest="8">
-        <RegExp input="$$7" output="&lt;details&gt;&lt;id&gt;$$2&lt;/id&gt;\1&lt;/details&gt;" dest="8">
+        <RegExp output="user-agent=Mozilla%2F5.0%20%28Windows%20NT%206.1%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F78.0.3904.97%20Safari%2F537.36" dest="10"><expression/></RegExp>
+        <RegExp input="$$7" output="&lt;details&gt;\1&lt;/details&gt;" dest="8">
             <!-- IMDB ID -->
-            <RegExp input="$$1" output="tt\1" dest="2">
-                <expression noclean="1" trim="1">&lt;a href=&quot;https?://[^&quot;]*imdb\.com/title/tt(\d+)/</expression>
+            <RegExp input="$$1" output="\1" dest="19">
+                <expression noclean="1" trim="1">&lt;a href=&quot;https?://[^&quot;]*imdb\.com/title/(tt\d+)/</expression>
             </RegExp>
             <!-- CSFD URL -->
-            <RegExp input="$$1" output="\1" dest="3">
+            <RegExp input="$$1" output="\1" dest="6">
                 <expression noclean="1">https?://(?:www\.)?csfd\.cz/film/(\d+-.*?)/(?:prehled|komentare|galerie)/</expression>
             </RegExp>
             <!-- fallback -->
-            <RegExp output="&lt;url function=&quot;GetFallbackDetails&quot; cache=&quot;$$2-main.html&quot;&gt;http://akas.imdb.com/title/$$2/&lt;/url&gt;" dest="7+">
+            <RegExp output="" dest="7">
                 <expression />
             </RegExp>
-            <!-- CSFD info -->
-            <RegExp output="&lt;url function=&quot;GetCSFDDetails&quot; cache=&quot;CSFD.prehled-$$3.html&quot;&gt;https://www.csfd.cz/filmy/$$3/prehled/|$$10&lt;/url&gt;" dest="7+">
+            <!-- IMDB fallback details -->
+            <RegExp output="&lt;url function=&quot;GetFallbackDetails&quot; cache=&quot;$$19-main.html&quot;&gt;http://www.imdb.com/title/$$19/&lt;/url&gt;" dest="7+">
                 <expression />
             </RegExp>
+            <!-- CSFD info this will work with original imdbid (not redirected) but as long the cache contains the redirected page, it is not an issue-->
+            <RegExp output="&lt;chain function=&quot;GetCSFDDetails&quot;&gt;imdbid:$$19;csfdid:$$6;&lt;/chain&gt;" dest="7+">
+                <expression />
+            </RegExp>
+
             <!-- Rest info -->
             <expression noclean="1"/>
         </RegExp>
     </GetDetails>
 
-
 	<!-- input : $$1=imdb title html -->
 	<!-- input : $$10=user-agent -->
+    <!-- output : $$19=IMDBid after redirect-->
     <GetFallbackDetails clearbuffers="no" dest="8">
         <!-- fix for redirect IMDB id -->
-        <RegExp input="$$1" output="\1" dest="2">
-            <expression>href=&quot;https://www.imdb.com/title/(tt[0-9]+)/&quot;</expression>
+        <RegExp input="$$1" output="\1" dest="19">
+            <expression>href=&quot;https://www.imdb.com/title/(tt\d+)/&quot;</expression>
         </RegExp>
         <RegExp input="$$7" output="&lt;details&gt;\1&lt;/details&gt;" dest="8">
-            <RegExp input="$$2" output="&lt;id&gt;\1&lt;/id&gt;" dest="7">
+            <RegExp input="$$19" output="&lt;id&gt;\1&lt;/id&gt;" dest="7">
                 <expression noclean="1" />
             </RegExp>
-            <RegExp conditional="tmdbcast" output="&lt;chain function=&quot;GetTMDBCastByIdChain&quot;&gt;$$2&lt;/chain&gt;" dest="7+">
+            <RegExp input="$$1" output="&lt;runtime&gt;\1&lt;/runtime&gt;" dest="7+">
+                <expression noclean="1">datetime=&quot;PT(\d+)M</expression>
+            </RegExp>
+            <RegExp input="$$1" output="&lt;year&gt;\1&lt;/year&gt;" dest="7+">
+                <expression>a href=&quot;/year/(\d+)/</expression>
+            </RegExp>
+
+            <RegExp conditional="tmdbcast" output="&lt;chain function=&quot;GetTMDBCastByIdChain&quot;&gt;$$19&lt;/chain&gt;" dest="7+">
                 <expression />
             </RegExp>
-            <RegExp conditional="!tmdbcast" output="&lt;chain function=&quot;GetIMDBCastById&quot;&gt;$$2&lt;/chain&gt;" dest="7+">
+            <RegExp conditional="!tmdbcast" output="&lt;chain function=&quot;GetIMDBCastById&quot;&gt;$$19&lt;/chain&gt;" dest="7+">
                 <expression />
             </RegExp>
-            <RegExp output="&lt;chain function=&quot;GetIMDBDirectorsById&quot;&gt;$$2&lt;/chain&gt;" dest="7+">
+            <RegExp output="&lt;chain function=&quot;GetIMDBDirectorsById&quot;&gt;$$19&lt;/chain&gt;" dest="7+">
                 <expression />
             </RegExp>
-            <RegExp output="&lt;chain function=&quot;GetIMDBWritersById&quot;&gt;$$2&lt;/chain&gt;" dest="7+">
+            <RegExp output="&lt;chain function=&quot;GetIMDBWritersById&quot;&gt;$$19&lt;/chain&gt;" dest="7+">
                 <expression />
             </RegExp>
-            <RegExp conditional="tmdbset" output="&lt;chain function=&quot;GetTMDBSetByIdChain&quot;&gt;$$2::$INFO[tmdbsetlanguage]&lt;/chain&gt;" dest="7+">
+            <RegExp conditional="tmdbset" output="&lt;chain function=&quot;GetTMDBSetByIdChain&quot;&gt;$$19::$INFO[tmdbsetlanguage]&lt;/chain&gt;" dest="7+">
                 <expression />
             </RegExp>
-            <RegExp conditional="imdbposter" output="&lt;url function=&quot;GetIMDBThumb&quot; cache=&quot;IMDB.media-$$2.html&quot;&gt;https://www.imdb.com/title/$$2/mediaindex&lt;/url&gt;" dest="7+">
+            <RegExp conditional="imdbposter" output="&lt;url function=&quot;GetIMDBThumb&quot; cache=&quot;IMDB.media-$$19.html&quot;&gt;https://www.imdb.com/title/$$19/mediaindex&lt;/url&gt;" dest="7+">
                 <expression />
             </RegExp>
-            <RegExp conditional="tmdbposter" output="&lt;chain function=&quot;GetTMDBThumbsByIdChain&quot;&gt;$$2::$INFO[tmdbthumblanguage]&lt;/chain&gt;" dest="7+">
+            <RegExp conditional="tmdbposter" output="&lt;chain function=&quot;GetTMDBThumbsByIdChain&quot;&gt;$$19::$INFO[tmdbthumblanguage]&lt;/chain&gt;" dest="7+">
                 <expression />
             </RegExp>
-            <RegExp conditional="tmdbfanart" output="&lt;chain function=&quot;GetTMDBFanartByIdChain&quot;&gt;$$2::$INFO[tmdbfanartlanguage]&lt;/chain&gt;" dest="7+">
+            <RegExp conditional="tmdbfanart" output="&lt;chain function=&quot;GetTMDBFanartByIdChain&quot;&gt;$$19::$INFO[tmdbfanartlanguage]&lt;/chain&gt;" dest="7+">
                 <expression />
             </RegExp>
-            <RegExp conditional="tmdbtrailer" output="&lt;chain function=&quot;GetTMDBTrailerByIdChain&quot;&gt;$$2::$INFO[tmdbtrailerlanguage]&lt;/chain&gt;" dest="7+">
+            <RegExp conditional="tmdbtrailer" output="&lt;chain function=&quot;GetTMDBTrailerByIdChain&quot;&gt;$$19::$INFO[tmdbtrailerlanguage]&lt;/chain&gt;" dest="7+">
                 <expression />
             </RegExp>
-            <RegExp output="&lt;chain function=&quot;GetTMDBPlotByIdChain&quot;&gt;$$2::$INFO[tmdbplotlanguage]&lt;/chain&gt;" dest="7+">
+            <RegExp output="&lt;chain function=&quot;GetTMDBPlotByIdChain&quot;&gt;$$19::$INFO[tmdbplotlanguage]&lt;/chain&gt;" dest="7+">
                 <expression />
             </RegExp>
 
-            <RegExp output="&lt;url function=&quot;GetRestIMDBInfo&quot; cache=&quot;IMDB.combined-$$2.html&quot;&gt;http://akas.imdb.com/title/$$2/combined&lt;/url&gt;" dest="7+">
+            <RegExp output="&lt;chain function=&quot;GetIMDBTOP250ById&quot;&gt;$$19&lt;/chain&gt;" dest="7+">
                 <expression />
             </RegExp>
+            <!-- ratings load another file ~1s -->
+            <!-- <RegExp output="&lt;chain function=&quot;GetIMDBUSACert&quot;&gt;$$19&lt;/chain&gt;" dest="7+">
+                <expression />
+            </RegExp> -->
+            <RegExp output="&lt;chain function=&quot;GetIMDBTaglineById&quot;&gt;$$19&lt;/chain&gt;" dest="7+">
+                <expression />
+            </RegExp>
+            <RegExp output="&lt;chain function=&quot;GetIMDBStudioById&quot;&gt;$$19&lt;/chain&gt;" dest="7+">
+                <expression />
+            </RegExp>
+
+
+
             <expression noclean="1" />
         </RegExp>
     </GetFallbackDetails>
 
 
-	<!-- input : $$1=csfd prehled html -->
-	<!-- input : $$10=user-agent -->
+    <!-- output : $$19=IMDBid -->
     <GetCSFDDetails clearbuffers="no" dest="8">
+        <RegExp output="&lt;details&gt;$$7&lt;/details&gt;" dest="8">
+            <RegExp output="user-agent=Mozilla%2F5.0%20%28Windows%20NT%206.1%3B%20Win64%3B%20x64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F78.0.3904.97%20Safari%2F537.36" dest="10"><expression/></RegExp>
+            <RegExp input="$$1" output="\1" dest="19">
+                <expression>imdbid:([^;]+);</expression>
+            </RegExp>
+            <RegExp input="$$1" output="\1" dest="6">
+                <expression>csfdid:([^;]+);</expression>
+            </RegExp>
+            <RegExp output="&lt;url function=&quot;ParseCSFDDetails&quot; cache=&quot;CSFD.prehled-$$6.html&quot;&gt;https://www.csfd.cz/filmy/$$6/prehled/|$$10&lt;/url&gt;" dest="7">
+                <expression />
+            </RegExp>
+            <expression />
+        </RegExp>
+    </GetCSFDDetails>
+
+	<!-- input : $$1=csfd prehled html -->
+    <!-- input : $$19=IMDBid -->
+	<!-- output : $$10=user-agent -->
+    <ParseCSFDDetails clearbuffers="no" dest="8">
         <RegExp input="$$7" output="&lt;details&gt;\1&lt;/details&gt;" dest="8">
 
           <!-- Titles -->
@@ -251,7 +295,7 @@
                 <expression />
             </RegExp>
             <!-- output title -->
-            <RegExp output="&lt;title&gt;$$20&lt;/title&gt;&lt;originaltitle&gt;$$12&lt;/originaltitle&gt;" dest="7+">
+            <RegExp output="&lt;title&gt;$$20&lt;/title&gt;&lt;originaltitle&gt;$$12&lt;/originaltitle&gt;" dest="7">
                 <expression/>
             </RegExp>
 
@@ -287,14 +331,30 @@
             <RegExp input="$$1" output="&lt;year&gt;\1&lt;/year&gt;" dest="7+">
                 <expression repeat="no" trim="1" noclean="0">&lt;span itemprop=&quot;dateCreated&quot;&gt;([0-9]+)&lt;/span&gt;</expression>
             </RegExp>
+
             <!-- genre -->
-            <RegExp input="$$1" output="&lt;genre&gt;\1&lt;/genre&gt;" dest="7+">
-                <expression repeat="yes" trim="1" noclean="0">&lt;p class=&quot;genre&quot;&gt;([^&lt;]*)</expression>
-            </RegExp>
+            <RegExp output="$$6" dest="7+">
+                <RegExp output="&lt;chain function=&quot;GetIMDBGenresById&quot;&gt;$$19&lt;/chain&gt;" dest="6">
+                    <expression />
+                </RegExp>
+                <RegExp input="$$1" output="&lt;genre&gt;\1&lt;/genre&gt;" dest="6">
+                    <expression repeat="yes" trim="1" noclean="0">&lt;p class=&quot;genre&quot;&gt;([^&lt;]*)</expression>
+                </RegExp>
+                <expression />
+            </RegExp>    
+
             <!-- country -->
-            <RegExp input="$$1" output="&lt;country&gt;\1&lt;/country&gt;" dest="7+">
-                <expression repeat="yes">&lt;p class=&quot;origin&quot;&gt;([^,]*),</expression>
-            </RegExp>
+            <RegExp output="$$6" dest="7+">
+                <RegExp output="&lt;chain function=&quot;GetIMDBCountryById&quot;&gt;$$19&lt;/chain&gt;" dest="6">
+                    <expression />
+                </RegExp>
+                <RegExp input="$$1" output="&lt;country&gt;\1&lt;/country&gt;" dest="6">
+                    <expression repeat="yes">&lt;p class=&quot;origin&quot;&gt;([^,]*),</expression>
+                </RegExp>
+                <expression />
+            </RegExp>    
+
+
             <!-- csfd thumb-->
             <RegExp conditional="csfdposter" input="$$1" output="&lt;thumb&gt;https://\1|$$10&lt;/thumb&gt;" dest="7+">
                 <expression repeat="yes" noclean="1">(img.csfd.cz/files/images/film/posters[^&quot;]*)(?:[?][hw][0-9]+)&quot;</expression>
@@ -302,38 +362,7 @@
 
             <expression noclean="1" />
         </RegExp>
-    </GetCSFDDetails>
-
-	<!-- input : $$1=imdb combined html -->
-    <GetRestIMDBInfo dest="8">
-        <RegExp input="$$7" output="&lt;details&gt;\1&lt;/details&gt;" dest="8">
-            <RegExp input="$$1" output="&lt;year&gt;\1&lt;/year&gt;" dest="7+">
-                <expression>a href=&quot;/year/([0-9]*)</expression>
-            </RegExp>
-            <RegExp input="$$1" output="&lt;top250&gt;\1&lt;/top250&gt;" dest="7+">
-                <expression>Top 250: #([0-9]*)&lt;/a&gt;</expression>
-            </RegExp>
-            <RegExp input="$$1" output="&lt;mpaa&gt;\1&lt;/mpaa&gt;" dest="7+">
-                <expression>MPAA&lt;/a&gt;:&lt;/h5&gt;\n?&lt;div class=&quot;info-content&quot;&gt;\n?(.[^&lt;]*)</expression>
-            </RegExp>
-            <RegExp input="$$1" output="&lt;certification&gt;\1 \3&lt;/certification&gt;" dest="7+">
-                <expression repeat="yes">&lt;a href=&quot;/search/title\?certificates=[^&quot;]*&quot;&gt;([^&lt;]*)&lt;/a&gt;[^&lt;]*(&lt;i&gt;([^&lt;]*)&lt;/i&gt;)?</expression>
-            </RegExp>
-            <RegExp input="$$1" output="&lt;tagline&gt;\1&lt;/tagline&gt;" dest="7+">
-                <expression>&lt;h5&gt;Tagline:&lt;/h5&gt;\n&lt;div class="info-content"&gt;([^&lt;]*)</expression>
-            </RegExp>
-            <RegExp input="$$1" output="&lt;runtime&gt;\1&lt;/runtime&gt;" dest="7+">
-                <expression trim="1">&lt;h5&gt;Runtime:&lt;/h5&gt;\n?&lt;div class=&quot;info-content&quot;&gt;\n?([0-9]*)</expression>
-            </RegExp>
-            <RegExp input="$$1" output="&lt;country&gt;\1&lt;/country&gt;" dest="7+">
-                <expression repeat="yes">&quot;/Sections/Countries/[^/]*/&quot;&gt;([^&lt;]*)&lt;/a&gt;</expression>
-            </RegExp>
-            <RegExp input="$$1" output="&lt;studio&gt;\1&lt;/studio&gt;" dest="7+">
-                <expression repeat="yes">&quot;/company/[^/]*/&quot;&gt;([^&lt;]*)&lt;/a&gt;</expression>
-            </RegExp>
-            <expression noclean="1"/>
-        </RegExp>
-    </GetRestIMDBInfo>
+    </ParseCSFDDetails>
 
 	<!-- input : $$1=imdb thumb part html -->
     <GetIMDBThumb dest="8">

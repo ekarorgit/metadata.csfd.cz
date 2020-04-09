@@ -1,3 +1,8 @@
+[B]3.14[/B]
+[fix] imdb akas subdomain not reachable
+[fix] different behavior on cleanbuffers - infinite loop crashing Kodi
+[removed] downloading US rating from imdb took +1s for each request.
+
 [B]3.13[/B]
 [fix] rolled back to http for imdb
 
