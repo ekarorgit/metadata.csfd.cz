@@ -3,7 +3,7 @@
    <requires>
       <import addon="xbmc.metadata" version="2.1.0"/>
       <import addon="metadata.common.themoviedb.org" version="3.1.0"/>
-      <import addon="metadata.common.imdb.com" version="3.1.10"/>
+      <import addon="metadata.common.imdb.com" version="3.1.4"/>
    </requires>
    <extension point="xbmc.metadata.scraper.movies" language="cs" library="csfdcz.xml"/>
    <extension point="xbmc.addon.metadata">
