@@ -73,13 +73,9 @@
             <RegExp input="$$1" output="\1" dest="6">
                 <expression noclean="1">https?://(?:www\.)?csfd\.cz/film/(\d+-.*?)/(?:prehled|komentare|galerie)/</expression>
             </RegExp>
-            <!-- fallback -->
-            <RegExp output="" dest="7">
-                <expression />
-            </RegExp>
             <!-- IMDB fallback details -->
-            <RegExp output="&lt;url function=&quot;GetFallbackDetails&quot; cache=&quot;$$19-main.html&quot;&gt;http://www.imdb.com/title/$$19/&lt;/url&gt;" dest="7+">
-                <expression />
+            <RegExp input="$$19" output="&lt;url function=&quot;GetFallbackDetails&quot; cache=&quot;\1-main.html&quot;&gt;http://www.imdb.com/title/\1/&lt;/url&gt;" dest="7">
+                <expression noclean="1" clear="yes">(.+)</expression>
             </RegExp>
             <!-- CSFD info this will work with original imdbid (not redirected) but as long the cache contains the redirected page, it is not an issue-->
             <RegExp output="&lt;chain function=&quot;GetCSFDDetails&quot;&gt;imdbid:$$19;csfdid:$$6;&lt;/chain&gt;" dest="7+">
@@ -317,42 +313,42 @@
 
             <!-- runtime -->
             <RegExp input="$$1" output="&lt;runtime&gt;\1&lt;/runtime&gt;" dest="7+">
-                <expression repeat="no" trim="1" noclean="0">([0-9]+) min\s*(?:\([^)]+\)\s*)?&lt;/p&gt;</expression>
+                <expression repeat="no" trim="1" noclean="1">([0-9]+) min\s*(?:\([^)]+\)\s*)?&lt;/p&gt;</expression>
             </RegExp>
             <!-- rating -->
             <RegExp input="$$1" output="&lt;rating max=&quot;100&quot;&gt;\1&lt;/rating&gt;" dest="7+">
-                <expression repeat="no" trim="1" noclean="0">&lt;h2 class=&quot;average&quot;&gt;[^0-9]*([0-9]+)%</expression>
+                <expression repeat="no" trim="1" noclean="1">&lt;h2 class=&quot;average&quot;&gt;[^0-9]*([0-9]+)%</expression>
             </RegExp>
             <!-- votes -->
             <RegExp input="$$1" output="&lt;votes&gt;\1\2&lt;/votes&gt;" dest="7+">
-                <expression repeat="no" trim="1" noclean="0">&quot;rating-count-link&quot;[^(]*\((\d+)(?:[^0-9)]*(\d+))?\)\s*&lt;/div&gt;</expression>
+                <expression repeat="no" trim="1" noclean="1">&quot;rating-count-link&quot;[^(]*\((\d+)(?:[^0-9)]*(\d+))?\)\s*&lt;/div&gt;</expression>
             </RegExp>s
             <!-- year -->
             <RegExp input="$$1" output="&lt;year&gt;\1&lt;/year&gt;" dest="7+">
-                <expression repeat="no" trim="1" noclean="0">&lt;span itemprop=&quot;dateCreated&quot;&gt;([0-9]+)&lt;/span&gt;</expression>
+                <expression repeat="no" trim="1" noclean="1">&lt;span itemprop=&quot;dateCreated&quot;&gt;([0-9]+)&lt;/span&gt;</expression>
             </RegExp>
 
             <!-- genre -->
             <RegExp output="$$6" dest="7+">
-                <RegExp output="&lt;chain function=&quot;GetIMDBGenresById&quot;&gt;$$19&lt;/chain&gt;" dest="6">
-                    <expression />
+                <RegExp input="$$19" output="&lt;chain function=&quot;GetIMDBGenresById&quot;&gt;\1&lt;/chain&gt;" dest="6">
+                    <expression noclean="1" clear="yes">(.+)</expression>
                 </RegExp>
                 <RegExp input="$$1" output="&lt;genre&gt;\1&lt;/genre&gt;" dest="6">
-                    <expression repeat="yes" trim="1" noclean="0">&lt;p class=&quot;genre&quot;&gt;([^&lt;]*)</expression>
+                    <expression repeat="yes" trim="1" noclean="1">&lt;p class=&quot;genre&quot;&gt;([^&lt;]*)</expression>
                 </RegExp>
                 <expression />
-            </RegExp>    
+            </RegExp>
 
             <!-- country -->
             <RegExp output="$$6" dest="7+">
-                <RegExp output="&lt;chain function=&quot;GetIMDBCountryById&quot;&gt;$$19&lt;/chain&gt;" dest="6">
-                    <expression />
+                <RegExp input="$$19" output="&lt;chain function=&quot;GetIMDBCountryById&quot;&gt;\1&lt;/chain&gt;" dest="6">
+                    <expression noclean="1" clear="yes">(.+)</expression>
                 </RegExp>
                 <RegExp input="$$1" output="&lt;country&gt;\1&lt;/country&gt;" dest="6">
                     <expression repeat="yes">&lt;p class=&quot;origin&quot;&gt;([^,]*),</expression>
                 </RegExp>
                 <expression />
-            </RegExp>    
+            </RegExp>
 
 
             <!-- csfd thumb-->

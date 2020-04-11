@@ -1,3 +1,7 @@
+[B]3.15[/B]
+[fix] more graceful behavior when missing imdbId (MrVoltz)
+[fix] proper dependencies
+
 [B]3.14[/B]
 [fix] imdb akas subdomain not reachable
 [fix] different behavior on cleanbuffers - infinite loop crashing Kodi
