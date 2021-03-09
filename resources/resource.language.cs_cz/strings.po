@@ -1,0 +1,117 @@
+# Kodi Media Center language file
+# Addon Name: ČSFD.cz
+# Addon id: metadata.csfd.cz
+# Addon Provider: ekarorgit
+msgid ""
+msgstr ""
+"Project-Id-Version: metadata.csfd.cz\n"
+"Report-Msgid-Bugs-To: https://github.com/ekarorgit/metadata.csfd.cz\n"
+"POT-Creation-Date: 2018-02-02 01:27+0000\n"
+"PO-Revision-Date: 2021-03-09 22:00+0000\n"
+"Last-Translator: ekarorgit\n"
+"Language-Team: Czech (Czech Republic)\n"
+"Language: cs_CZ\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+
+msgctxt "Addon Summary"
+msgid "ČSFD Movie Scraper"
+msgstr "ČSFD Metadata Stahovač"
+
+msgctxt "Addon Description"
+msgid "Download Movie information from www.csfd.cz (czech-slovak movie database) / combined with www.imdb.com and themoviedb.org"
+msgstr "Stahuje informace o filmech z csfd.cz (kombinovaně s imdb.com a themoviedb.org). Volně navázáno na původní verzi od LD a verzi 3.4h nalezenou na netu. (http://ldevel.blogspot.sk/)"
+
+msgctxt "Addon Disclaimer"
+msgid "For bugs visit www.github.com/ekarorgit/metadata.csfd.cz"
+msgstr "Pro nahlášení bugu navštivte www.github.com/ekarorgit/metadata.csfd.cz"
+
+msgctxt "#30001"
+msgid "Force year from filename in search"
+msgstr "Zohlednit rok z názvu při vyhledávání"
+
+msgctxt "#30002"
+msgid "Remove "part X" from title"
+msgstr "Odstraňovat výrazy "part" z názvu filmu"
+
+msgctxt "#30011"
+msgid "Get collection name from themoviedb.org"
+msgstr "Získat název kolekce z themoviedb.org"
+
+msgctxt "#30012"
+msgid "Preferred collection name language"
+msgstr "Preferovaný jazyk názvu kolekce"
+
+msgctxt "#30021"
+msgid "Get plot from themoviedb.org"
+msgstr "Získat obsah z themoviedb.org"
+
+msgctxt "#30022"
+msgid "Preferred plot language"
+msgstr "Preferovaný jazyk obsahu"
+
+msgctxt "#30031"
+msgid "Get cast from themoviedb.org rather than imdb.com"
+msgstr "Získat obsazení z themoviedb.org místo imdb.com"
+
+msgctxt "#30100"
+msgid "Medias"
+msgstr "Filmová média"
+
+msgctxt "#30101"
+msgid "Download CSFD poster"
+msgstr "Stahovat plakát z ČSFD"
+
+msgctxt "#30102"
+msgid "Enable posters from imdb.com"
+msgstr "Stahovat plakát z imdb.com"
+
+msgctxt "#30103"
+msgid "Enable posters from themoviedb.org"
+msgstr "Stahovat plakát z themoviedb.org"
+
+msgctxt "#30104"
+msgid "Preferred thumb language"
+msgstr "Preferovaný jazyk plakátu"
+
+msgctxt "#30111"
+msgid "Download fanart from themoviedb.org"
+msgstr "Povolit fanart z themoviedb.org"
+
+msgctxt "#30112"
+msgid "Preferred fanart language"
+msgstr "Preferovaný jazyk fanartu"
+
+msgctxt "#30121"
+msgid "Enable trailers from themoviedb.org"
+msgstr "Povolit upoutávky z themoviedb.org"
+
+msgctxt "#30122"
+msgid "Preferred trailer language"
+msgstr "Preferovaný jazyk upoutávky"
+
+msgctxt "#30200"
+msgid "Film title"
+msgstr "Název filmu"
+
+msgctxt "#30201"
+msgid "Preffered title language (fallback:local)"
+msgstr "Preferovaný jazyk názvu filmu (fallback:local)"
+
+msgctxt "#30202"
+msgid "Show secondary title"
+msgstr "Zobrazit druhý název filmu v závorce"
+
+msgctxt "#30203"
+msgid "Preffered secondary title language (fallback:original)"
+msgstr "Preferovaný jazyk druhého názvu (fallback:original)"
+
+msgctxt "#30204"
+msgid "Swap primary and secondary titles"
+msgstr "Prohodit první a druhý název"
+
+msgctxt "#30205"
+msgid "Hide secondary title if same as primary"
+msgstr "Skrýt druhý název pokud jsou názvy shodné"
